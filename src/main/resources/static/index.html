@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="NWAReports">
+<head>
+    <meta charset="UTF-8">
+    <title>NWA Reports</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="nwareports_controller.js"></script>
+</head>
+<body ng-controller="NWAReportsCtrl">
+<h1>Noah Webster Academy Reports</h1>
+
+<div>
+    <p>Reports</p>
+    <form>
+        <label>Select a report: <select ng-model="selectedReport" ng-options="x.name for x in reports"></select></label>
+    </form>
+    <p>Description: {{selectedReport.description}}</p>
+</div>
+
+<p>Copyright 2017 - Noah Webster Academy</p>
+</body>
+</html>
