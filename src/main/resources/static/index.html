@@ -5,6 +5,7 @@
     <title>NWA Reports</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
     <script src="js/nwareports_controller.js"></script>
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body ng-controller="NWAReportsCtrl">
 <h1>Noah Webster Academy Reports</h1>
@@ -15,9 +16,8 @@
         <label>Select a report: <select ng-model="selectedReport" ng-options="x.name for x in reports"></select></label>
         <button ng-click="executeReport()">Get Report</button>
     </form>
-    <p>{{stuff}}</p>
     <p>Description: {{selectedReport.description}}</p>
-    <table>
+    <table class="result-table">
         <tr>
             <th ng-repeat="header in data.columnNames">{{header}}</th>
         </tr>

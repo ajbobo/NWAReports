@@ -1,0 +1,18 @@
+.result-table th,
+.result-table td {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    border: 1px dotted black;
+}
+
+.result-table th {
+    background: lightgrey;
+}
+
+.result-table {
+    /*float: left;*/
+    margin-right: 25px;
+    margin-bottom: 25px;
+    border: 1px solid black;
+}
