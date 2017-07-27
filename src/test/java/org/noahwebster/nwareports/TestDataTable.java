@@ -33,7 +33,7 @@ public class TestDataTable {
 	public void testFilteredUniqueColumns() {
 		DataTable table = new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
-				.withColumnNames(new String[]{"Textbox20 as Grade", "StudentName"})
+				.withColumnNames("Textbox20 as Grade", "StudentName")
 				.uniqueOnly()
 				.read();
 		printTable(table);
@@ -72,7 +72,7 @@ public class TestDataTable {
 		DataTable table = new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
 				.withFilter(new DataTable.Filter("Textbox20", DataTable.FilterType.EQUALS, "Grade:  2"))
-				.withColumnNames(new String[]{"StudentName", "Textbox20"})
+				.withColumnNames("StudentName", "Textbox20")
 				.uniqueOnly()
 				.read();
 		printTable(table);

@@ -124,7 +124,7 @@ public class DataTable {
 			return this;
 		}
 
-		public Reader withColumnNames(String[] columnNames) {
+		public Reader withColumnNames(String... columnNames) {
 			this.columnNames = columnNames;
 			return this;
 		}

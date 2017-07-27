@@ -1,5 +1,6 @@
 package org.noahwebster.nwareports.reports;
 
+import org.noahwebster.nwareports.DataTable;
 import org.noahwebster.nwareports.Report;
 
 public class AttendanceReport extends Report {
@@ -8,5 +9,10 @@ public class AttendanceReport extends Report {
 	public AttendanceReport() {
 		name = REPORT_NAME;
 		description = "Attendance by Scholar";
+	}
+
+	@Override
+	public DataTable executeReport() {
+		return null;
 	}
 }

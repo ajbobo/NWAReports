@@ -1,6 +1,6 @@
 package org.noahwebster.nwareports;
 
-import org.noahwebster.nwareports.reports.ReportFactory;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,5 +17,13 @@ public class NWAReports_WebController {
 			reports.add(ReportFactory.getReport(report));
 
 		return reports;
+	}
+
+	@RequestMapping("/reports/{reportName}")
+	public DataTable executeReport(@PathVariable("reportName") String reportName ) {
+		Report report = ReportFactory.getReport(reportName);
+		if (report != null)
+			return report.executeReport();
+		return null;
 	}
 }

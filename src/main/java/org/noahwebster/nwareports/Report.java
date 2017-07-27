@@ -12,4 +12,6 @@ public abstract class Report {
 	public String getDescription() {
 		return description;
 	}
+
+	public abstract DataTable executeReport();
 }

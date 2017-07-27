@@ -1,0 +1,34 @@
+package org.noahwebster.nwareports;
+
+import org.noahwebster.nwareports.reports.AttendanceReport;
+import org.noahwebster.nwareports.reports.ScholarsReport;
+
+import java.util.LinkedHashMap;
+
+public class ReportFactory {
+
+	private static LinkedHashMap<String, Class> reports;
+
+	static {
+		reports = new LinkedHashMap<>();
+		reports.put(ScholarsReport.REPORT_NAME, ScholarsReport.class);
+		reports.put(AttendanceReport.REPORT_NAME, AttendanceReport.class);
+	}
+
+	public static Report getReport(String reportName) {
+		try {
+			if (reports.containsKey(reportName))
+				return (Report)reports.get(reportName).newInstance();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+	public static String[] getReportNames() {
+		String[] names = new String[reports.size()];
+		reports.keySet().toArray(names);
+		return names;
+	}
+}
