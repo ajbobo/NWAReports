@@ -22,8 +22,7 @@
             <th ng-repeat="header in data.columnNames">{{header}}</th>
         </tr>
         <tr ng-repeat="row in data.data">
-            <td>{{row[0]}}</td>
-            <td>{{row[1]}}</td>
+            <td ng-repeat="x in row">{{x}}</td>
         </tr>
     </table>
 </div>

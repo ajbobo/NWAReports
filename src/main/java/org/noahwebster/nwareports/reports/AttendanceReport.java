@@ -13,6 +13,10 @@ public class AttendanceReport extends Report {
 
 	@Override
 	public DataTable executeReport() {
-		return null;
+		return new DataTable.Reader()
+				.withFilePath("C:\\NWAReports\\AttendanceByDay.csv")
+				.withStartRow(3)
+				.withColumnNames("StudentID", "StudentName", "Date", "Period0 as Status1", "Period2 as Status2")
+				.read();
 	}
 }
