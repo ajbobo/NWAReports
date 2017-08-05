@@ -8,7 +8,8 @@ import java.util.*;
 public class DataTable {
 	private List<Map<String, String>> data;
 
-	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters, boolean uniqueOnly) {
+	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
+	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly) {
 		try {
 			CSVReader reader = new CSVReader(new FileReader(filePath), ',', '"', startRow);
 
@@ -33,13 +34,22 @@ public class DataTable {
 				}
 
 				// Insert the requested column values from the row into the results
-				List<String> requestedColumns = Arrays.asList(columnNames != null ? columnNames : headers);
+				ArrayList<String> requestedColumns = new ArrayList<>(Arrays.asList(columnNames != null ? columnNames : headers));
+				generateColumnAliasProcessors(requestedColumns, processors);
 				if (isValidRow) {
 					LinkedHashMap<String, String> dataLine = new LinkedHashMap<>();
 					for (int x = 0; x < nextLine.length; x++) {
 						String curColumn = headers[x];
-						if (requestedColumns.contains(curColumn))
-							dataLine.put(curColumn, nextLine[x]);
+						if (requestedColumns.contains(curColumn)) {
+							if (processors == null || !processors.containsKey(curColumn)) {
+								dataLine.put(curColumn, nextLine[x]);
+							}
+							else {
+								Map<String, String> newCells = processors.get(curColumn).processCell(curColumn, nextLine[x]);
+								for (String col : newCells.keySet())
+									dataLine.put(col, newCells.get(col));
+							}
+						}
 					}
 					if (!uniqueOnly || isUnique(dataLine))
 						data.add(dataLine);
@@ -50,6 +60,26 @@ public class DataTable {
 			ex.printStackTrace();
 			this.data = null;
 		}
+	}
+
+	private void generateColumnAliasProcessors(List<String> requestedColumns, Map<String, ColumnProcessor> processors) {
+		// For "Column as NewName" requests, create a Processor to do the work
+		ArrayList<String> columnsToRemove = new ArrayList<>();
+		ArrayList<String> columnsToAdd = new ArrayList<>();
+		for (String column : requestedColumns) {
+			if (column.contains(" as ")) {
+				String[] names = column.split(" as ");
+				columnsToRemove.add(column);
+				columnsToAdd.add(names[0].trim());
+				processors.put(names[0].trim(), (column1, oldValue) -> {
+					Map<String, String> res = new LinkedHashMap<>();
+					res.put(names[1].trim(), oldValue);
+					return res;
+				});
+			}
+		}
+		requestedColumns.removeAll(columnsToRemove);
+		requestedColumns.addAll(columnsToAdd);
 	}
 
 	private boolean isUnique(Map<String, String> dataLine) {
@@ -73,13 +103,15 @@ public class DataTable {
 		private int startRow;
 		private String[] columnNames;
 		private List<Filter> filters;
+		private Map<String, ColumnProcessor> processors;
 		private boolean uniqueOnly;
 
 		public Reader() {
 			this.filePath = null;
 			this.startRow = 0;
 			this.columnNames = null;
-			this.filters = null;
+			this.filters = new ArrayList<>();
+			this.processors = new LinkedHashMap<>();
 			this.uniqueOnly = false;
 		}
 
@@ -93,15 +125,18 @@ public class DataTable {
 			return this;
 		}
 
-		public Reader withColumnNames(String... columnNames) {
+		public Reader withColumns(String... columnNames) {
 			this.columnNames = columnNames;
 			return this;
 		}
 
 		public Reader withFilter(Filter filter) {
-			if (this.filters == null)
-				this.filters = new ArrayList<>();
 			this.filters.add(filter);
+			return this;
+		}
+
+		public Reader withColumnProcessor(String columnName, ColumnProcessor processor) {
+			this.processors.put(columnName, processor);
 			return this;
 		}
 
@@ -111,7 +146,7 @@ public class DataTable {
 		}
 
 		public DataTable read() {
-			return new DataTable(filePath, startRow, columnNames, filters, uniqueOnly);
+			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly);
 		}
 	}
 
@@ -148,5 +183,10 @@ public class DataTable {
 
 	public enum FilterType {
 		EQUALS
+	}
+
+	public interface ColumnProcessor {
+		// Given the column and value of a cell, return a map of the new columns
+		Map<String, String> processCell(String column, String oldValue);
 	}
 }

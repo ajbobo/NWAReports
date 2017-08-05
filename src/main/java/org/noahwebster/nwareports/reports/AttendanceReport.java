@@ -16,8 +16,8 @@ public class AttendanceReport extends Report {
 		return new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\AttendanceByDay.csv")
 				.withStartRow(3)
-				.withColumnNames("StudentID", "StudentName", "Date", "Period0", "Period2")
-//				.withColumnNames("StudentID", "StudentName", "Date", "Period0 as Status1", "Period2 as Status2")
+				.withColumns("StudentID", "StudentName", "Date", "Period0", "Period2")
+//				.withColumns("StudentID", "StudentName", "Date", "Period0 as Status1", "Period2 as Status2")
 				.read();
 	}
 }
