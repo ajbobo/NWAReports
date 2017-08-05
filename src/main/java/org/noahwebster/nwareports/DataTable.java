@@ -3,51 +3,24 @@ package org.noahwebster.nwareports;
 import com.opencsv.CSVReader;
 
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class DataTable {
-	private String[] columnNames;
-	private List<String[]> data;
+	private List<Map<String, String>> data;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters, boolean uniqueOnly) {
 		try {
 			CSVReader reader = new CSVReader(new FileReader(filePath), ',', '"', startRow);
 
-			// Determine the headers of the raw data, and the headers that should be in the results
+			// Read the headers of the raw data
 			String[] headers = reader.readNext();
-			String[] requestedColumns;
-			String[] columnAliases;
-			if (columnNames != null) {
-				requestedColumns = new String[columnNames.length];
-				columnAliases = new String[columnNames.length];
-				for (int x = 0; x < columnNames.length; x++) {
-					String requestedName = columnNames[x];
-					if (requestedName.contains(" as ")) {
-						String[] vals = requestedName.split(" as ");
-						requestedColumns[x] = vals[0].trim();
-						columnAliases[x] = vals[1].trim();
-					}
-					else {
-						requestedColumns[x] = requestedName;
-						columnAliases[x] = requestedName;
-					}
-				}
-				this.columnNames = columnAliases;
-			}
-			else {
-				this.columnNames = headers;
-				requestedColumns = headers;
-			}
-			List<String> dataColumnList = Arrays.asList(requestedColumns);
 
-			// For each row in the raw data, determine which values should be in the reuslts, and the right order
+			// For each row in the raw data, determine which values should be in the results
 			data = new ArrayList<>();
 			String[] nextLine;
 			while ((nextLine = reader.readNext()) != null) {
 				// Does this row match ALL of the assigned filters?
+				// TODO: Can I do this with Java Stream API instead?
 				boolean isValidRow = true;
 				if (nextLine.length == 1 && nextLine[0].equalsIgnoreCase("")) // Skip empty rows
 					isValidRow = false;
@@ -60,42 +33,38 @@ public class DataTable {
 				}
 
 				// Insert the requested column values from the row into the results
+				List<String> requestedColumns = Arrays.asList(columnNames != null ? columnNames : headers);
 				if (isValidRow) {
-					String[] dataLine = new String[this.columnNames.length];
+					LinkedHashMap<String, String> dataLine = new LinkedHashMap<>();
 					for (int x = 0; x < nextLine.length; x++) {
 						String curColumn = headers[x];
-						if (dataColumnList.contains(curColumn))
-							dataLine[dataColumnList.indexOf(curColumn)] = nextLine[x];
+						if (requestedColumns.contains(curColumn))
+							dataLine.put(curColumn, nextLine[x]);
 					}
 					if (!uniqueOnly || isUnique(dataLine))
-					data.add(dataLine);
+						data.add(dataLine);
 				}
 			}
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
-			this.columnNames = null;
 			this.data = null;
 		}
 	}
 
-	private boolean isUnique(String[] dataLine) {
+	private boolean isUnique(Map<String, String> dataLine) {
 		boolean unique = true;
-		for (String[] curLine : data) {
+		for (Map<String, String> curLine : data) {
 			boolean matchesRow = true;
-			for (int x = 0; x < dataLine.length; x++)
-				matchesRow &= curLine[x].equalsIgnoreCase(dataLine[x]);
+			for (String colName : dataLine.keySet())
+				matchesRow &= curLine.get(colName).equalsIgnoreCase(dataLine.get(colName));
 			if (matchesRow)
 				unique = false;
 		}
 		return unique;
 	}
 
-	public String[] getColumnNames() {
-		return columnNames;
-	}
-
-	public List<String[]> getData() {
+	public List<Map<String, String>> getData() {
 		return data;
 	}
 
@@ -169,7 +138,8 @@ public class DataTable {
 			String targetValue = nextLine[targetCol];
 
 			switch (type) {
-				case EQUALS: return value.equalsIgnoreCase(targetValue);
+				case EQUALS:
+					return value.equalsIgnoreCase(targetValue);
 			}
 
 			return false;
@@ -177,6 +147,6 @@ public class DataTable {
 	}
 
 	public enum FilterType {
-		EQUALS;
+		EQUALS
 	}
 }

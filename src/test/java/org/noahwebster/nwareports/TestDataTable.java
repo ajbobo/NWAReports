@@ -2,6 +2,11 @@ package org.noahwebster.nwareports;
 
 import org.testng.annotations.Test;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class TestDataTable {
 	@Test
 	public void testDataTable() {
@@ -17,33 +22,33 @@ public class TestDataTable {
 				.withFilePath("C:\\NWAReports\\AttendanceByDay.csv")
 				.withStartRow(3)
 				.read();
-		printTable(table);
+		printTable(table, 15);
 	}
 
 	@Test
-	public void testFilteredColumns() {
+	public void testLimitedColumns() {
 		DataTable table = new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
-				.withColumnNames(new String[]{"Textbox20", "StudentName"})
+				.withColumnNames("Textbox20", "StudentName")
 				.read();
 		printTable(table);
 	}
 
 	@Test
-	public void testFilteredUniqueColumns() {
+	public void testLimitedUniqueColumns() {
 		DataTable table = new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
-				.withColumnNames("Textbox20 as Grade", "StudentName")
+				.withColumnNames("Textbox20", "StudentName")
 				.uniqueOnly()
 				.read();
 		printTable(table);
 	}
 
 	@Test
-	public void testFilteredAliasedColumns() {
+	public void testLimitedAliasedColumns() {
 		DataTable table = new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
-				.withColumnNames(new String[]{"Textbox20 as Grade", "StudentName as    Student Name    "})
+				.withColumnNames("Textbox20 as Grade", "StudentName as    Student Name    ")
 				.read();
 		printTable(table);
 	}
@@ -79,12 +84,21 @@ public class TestDataTable {
 	}
 
 	private void printTable(DataTable table) {
-		for (String colName : table.getColumnNames())
+		printTable(table, 0);
+	}
+
+	private void printTable(DataTable table, int limit) {
+		List<Map<String, String>> theTable = table.getData();
+		Set<String> columns = theTable.get(0).keySet();
+		for (String colName : columns)
 			System.out.print(colName + "\t");
 		System.out.println();
-		for (String[] row : table.getData()) {
-			for (String val : row)
-				System.out.print(val + "\t");
+//		for (Map<String, String> row : table.getData()) {
+		Iterator<Map<String, String>> iterator = theTable.iterator();
+		for (int x = 0; (limit == 0 || x < limit) && iterator.hasNext(); x++) {
+			Map<String, String> row = iterator.next();
+			for (String colName : columns)
+				System.out.print(row.get(colName) + "\t");
 			System.out.println();
 		}
 	}

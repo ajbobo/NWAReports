@@ -16,7 +16,8 @@ public class ScholarsReport extends Report {
 	public DataTable executeReport() {
 		return new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
-				.withColumnNames("StudentName", "Textbox20 as Grade")
+				.withColumnNames("StudentName", "Textbox20")
+//				.withColumnNames("StudentName", "Textbox20 as Grade")
 				.uniqueOnly()
 				.read();
 	}
