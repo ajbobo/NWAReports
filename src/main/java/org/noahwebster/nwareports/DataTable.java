@@ -7,6 +7,7 @@ import java.util.*;
 
 public class DataTable {
 	private List<Map<String, String>> data;
+	private String[] columnNames;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
 	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly) {
@@ -55,6 +56,9 @@ public class DataTable {
 						data.add(dataLine);
 				}
 			}
+
+			this.columnNames = new String[data.get(0).keySet().size()];
+			data.get(0).keySet().toArray(this.columnNames);
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -92,6 +96,10 @@ public class DataTable {
 				unique = false;
 		}
 		return unique;
+	}
+
+	public String[] getColumnNames() {
+		return columnNames;
 	}
 
 	public List<Map<String, String>> getData() {
