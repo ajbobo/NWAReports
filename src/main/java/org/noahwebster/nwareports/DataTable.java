@@ -183,6 +183,10 @@ public class DataTable {
 			switch (type) {
 				case EQUALS:
 					return value.equalsIgnoreCase(targetValue);
+				case NOT_EQUALS:
+					return !value.equalsIgnoreCase(targetValue);
+				case CONTAINS:
+					return value.contains(targetValue);
 			}
 
 			return false;
@@ -190,7 +194,9 @@ public class DataTable {
 	}
 
 	public enum FilterType {
-		EQUALS
+		EQUALS,
+		NOT_EQUALS,
+		CONTAINS
 	}
 
 	public interface ColumnProcessor {

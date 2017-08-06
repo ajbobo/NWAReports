@@ -12,7 +12,7 @@ public class TestDataTable {
 		DataTable table = new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
 				.read();
-		printTable(table);
+		Util.printTable(table);
 	}
 
 	@Test
@@ -21,7 +21,7 @@ public class TestDataTable {
 				.withFilePath("C:\\NWAReports\\AttendanceByDay.csv")
 				.withStartRow(3)
 				.read();
-		printTable(table, 15);
+		Util.printTable(table, 15);
 	}
 
 	@Test
@@ -30,7 +30,7 @@ public class TestDataTable {
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
 				.withColumns("Textbox20", "StudentName")
 				.read();
-		printTable(table);
+		Util.printTable(table);
 	}
 
 	@Test
@@ -40,7 +40,7 @@ public class TestDataTable {
 				.withColumns("Textbox20 as Grade", "StudentName")
 				.uniqueOnly()
 				.read();
-		printTable(table);
+		Util.printTable(table);
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class TestDataTable {
 				})
 				.uniqueOnly()
 				.read();
-		printTable(table, 5);
+		Util.printTable(table, 5);
 	}
 
 	@Test
@@ -85,7 +85,7 @@ public class TestDataTable {
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
 				.withColumns("Textbox20 as Grade", "  StudentName   as    Student Name    ")
 				.read();
-		printTable(table);
+		Util.printTable(table);
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class TestDataTable {
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
 				.withFilter(new DataTable.Filter("Textbox20", DataTable.FilterType.EQUALS, "Grade:  2"))
 				.read();
-		printTable(table);
+		Util.printTable(table);
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class TestDataTable {
 				.withFilter(new DataTable.Filter("ScoreMethodTitle1", DataTable.FilterType.EQUALS, "Proficiency"))
 				.withFilter(new DataTable.Filter("Category", DataTable.FilterType.EQUALS, " 2016"))
 				.read();
-		printTable(table);
+		Util.printTable(table);
 	}
 
 	@Test
@@ -125,25 +125,8 @@ public class TestDataTable {
 				})
 				.uniqueOnly()
 				.read();
-		printTable(table);
+		Util.printTable(table);
 	}
 
-	private void printTable(DataTable table) {
-		printTable(table, 0);
-	}
-
-	private void printTable(DataTable table, int limit) {
-		List<Map<String, String>> theTable = table.getData();
-		Set<String> columns = theTable.get(0).keySet();
-		for (String colName : columns)
-			System.out.print(colName + "\t");
-		System.out.println();
-		Iterator<Map<String, String>> iterator = theTable.iterator();
-		for (int x = 0; (limit == 0 || x < limit) && iterator.hasNext(); x++) {
-			Map<String, String> row = iterator.next();
-			for (String colName : columns)
-				System.out.print(row.get(colName) + "\t");
-			System.out.println();
-		}
-	}
+	
 }

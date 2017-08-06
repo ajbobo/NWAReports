@@ -1,6 +1,5 @@
 Add post-processing to Report
    Have the Attendance report return total attendance by student
-   Combine Status columns into 1, use better names for absense types
    Display totals of each absense type as columns
 Add parameters to Report
    Student, grade, date range, etc.
