@@ -5,3 +5,6 @@ Add parameters to Report
    Student, grade, date range, etc.
 Allow aggregation by date range
 Add combination report - Attendance+demographic
+** Add Reduce option to DataTable **
+  Provide a list of columns to keep - these are the key
+  Provide a list of columns to reduce, and how they will be reduced (Sum, Max, Avg, etc)
