@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.util.*;
 
 public class DataTable {
-	private List<Map<String, String>> data;
+	private List<DataRow> data;
 	private String[] columnNames;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
@@ -38,7 +38,7 @@ public class DataTable {
 				ArrayList<String> requestedColumns = new ArrayList<>(Arrays.asList(columnNames != null ? columnNames : headers));
 				generateColumnAliasProcessors(requestedColumns, processors);
 				if (isValidRow) {
-					LinkedHashMap<String, String> dataLine = new LinkedHashMap<>();
+					DataRow dataLine = new DataRow();
 					for (int x = 0; x < nextLine.length; x++) {
 						String curColumn = headers[x];
 						if (requestedColumns.contains(curColumn)) {
@@ -46,8 +46,8 @@ public class DataTable {
 								dataLine.put(curColumn, nextLine[x]);
 							}
 							else {
-								Map<String, String> newCells = processors.get(curColumn).processCell(curColumn, nextLine[x]);
-								for (String col : newCells.keySet())
+								DataRow newCells = processors.get(curColumn).processCell(curColumn, nextLine[x]);
+								for (String col : newCells.columnNames())
 									dataLine.put(col, newCells.get(col));
 							}
 						}
@@ -57,8 +57,8 @@ public class DataTable {
 				}
 			}
 
-			this.columnNames = new String[data.get(0).keySet().size()];
-			data.get(0).keySet().toArray(this.columnNames);
+			this.columnNames = new String[data.get(0).columnNames().size()];
+			data.get(0).columnNames().toArray(this.columnNames);
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -76,7 +76,7 @@ public class DataTable {
 				columnsToRemove.add(column);
 				columnsToAdd.add(names[0].trim());
 				processors.put(names[0].trim(), (column1, oldValue) -> {
-					Map<String, String> res = new LinkedHashMap<>();
+					DataRow res = new DataRow();
 					res.put(names[1].trim(), oldValue);
 					return res;
 				});
@@ -86,11 +86,11 @@ public class DataTable {
 		requestedColumns.addAll(columnsToAdd);
 	}
 
-	private boolean isUnique(Map<String, String> dataLine) {
+	private boolean isUnique(DataRow dataLine) {
 		boolean unique = true;
-		for (Map<String, String> curLine : data) {
+		for (DataRow curLine : data) {
 			boolean matchesRow = true;
-			for (String colName : dataLine.keySet())
+			for (String colName : dataLine.columnNames())
 				matchesRow &= curLine.get(colName).equalsIgnoreCase(dataLine.get(colName));
 			if (matchesRow)
 				unique = false;
@@ -102,7 +102,7 @@ public class DataTable {
 		return columnNames;
 	}
 
-	public List<Map<String, String>> getData() {
+	public List<DataRow> getData() {
 		return data;
 	}
 
@@ -201,6 +201,6 @@ public class DataTable {
 
 	public interface ColumnProcessor {
 		// Given the column and value of a cell, return a map of the new columns
-		Map<String, String> processCell(String column, String oldValue);
+		DataRow processCell(String column, String oldValue);
 	}
 }

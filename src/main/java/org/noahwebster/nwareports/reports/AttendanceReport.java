@@ -1,5 +1,6 @@
 package org.noahwebster.nwareports.reports;
 
+import org.noahwebster.nwareports.DataRow;
 import org.noahwebster.nwareports.DataTable;
 import org.noahwebster.nwareports.Report;
 
@@ -23,7 +24,7 @@ public class AttendanceReport extends Report {
 	}
 
 	private static DataTable.ColumnProcessor typePivot = (column, oldValue) -> {
-		LinkedHashMap<String, String> res = new LinkedHashMap<>();
+		DataRow res = new DataRow();
 		if (typeMap.containsKey(oldValue)) { // Only process cells with a valid value
 			for (String key : typeMap.keySet()) // Need all columns in all rows
 				res.put(typeMap.get(key), "0");

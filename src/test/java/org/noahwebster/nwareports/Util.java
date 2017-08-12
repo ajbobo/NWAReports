@@ -11,12 +11,12 @@ public class Util {
 	}
 
 	public static void printTable(DataTable table, int limit) {
-		List<Map<String, String>> theTable = table.getData();
-		Set<String> columns = theTable.get(0).keySet();
+		List<DataRow> theTable = table.getData();
+		Set<String> columns = theTable.get(0).columnNames();
 		for (String colName : columns)
 			System.out.print(colName + "\t");
 		System.out.println();
-		Iterator<Map<String, String>> iterator = theTable.iterator();
+		Iterator<DataRow> iterator = theTable.iterator();
 		for (int x = 0; (limit == 0 || x < limit) && iterator.hasNext(); x++) {
 			Map<String, String> row = iterator.next();
 			for (String colName : columns)

@@ -1,10 +1,9 @@
 package org.noahwebster.nwareports.reports;
 
+import org.noahwebster.nwareports.DataRow;
 import org.noahwebster.nwareports.DataTable;
 import org.noahwebster.nwareports.Report;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +22,7 @@ public class ScholarsReport extends Report {
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
 				.withColumns("StudentName", "Textbox20")
 				.withColumnProcessor("StudentName", (column, oldValue) -> {
-					Map<String, String> res = new LinkedHashMap<>();
+					DataRow res = new DataRow();
 					Pattern pattern = Pattern.compile("(?<First>\\S+)\\s+(?<Last>\\S+)\\s+[(](?<Id>\\d+)[)]");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find()) {
@@ -39,7 +38,7 @@ public class ScholarsReport extends Report {
 					return res;
 				})
 				.withColumnProcessor("Textbox20", (column, oldValue) -> {
-					Map<String, String> res = new LinkedHashMap<>();
+					DataRow res = new DataRow();
 					Pattern pattern = Pattern.compile("Grade:\\s+(?<Grade>\\d+)");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find())

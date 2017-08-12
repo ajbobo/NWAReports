@@ -2,7 +2,6 @@ package org.noahwebster.nwareports;
 
 import org.testng.annotations.Test;
 
-import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +48,7 @@ public class TestDataTable {
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
 				.withColumns("Textbox20", "StudentName")
 				.withColumnProcessor("StudentName", (column, oldValue) -> {
-					Map<String, String> res = new LinkedHashMap<>();
+					DataRow res = new DataRow();
 					Pattern pattern = Pattern.compile("(?<First>\\S+)\\s+(?<Last>\\S+)\\s+[(](?<Id>\\d+)[)]");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find()) {
@@ -65,7 +64,7 @@ public class TestDataTable {
 					return res;
 				})
 				.withColumnProcessor("Textbox20", (column, oldValue) -> {
-					Map<String, String> res = new LinkedHashMap<>();
+					DataRow res = new DataRow();
 					Pattern pattern = Pattern.compile("Grade:\\s+(?<Grade>\\d+)");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find())
@@ -114,7 +113,7 @@ public class TestDataTable {
 				.withFilter(new DataTable.Filter("Textbox20", DataTable.FilterType.EQUALS, "Grade:  2"))
 				.withColumns("StudentName", "Textbox20")
 				.withColumnProcessor("Textbox20", (column, oldValue) -> {
-					Map<String, String> res = new LinkedHashMap<>();
+					DataRow res = new DataRow();
 					Pattern pattern = Pattern.compile("Grade:\\s+(?<Grade>\\d+)");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find())
