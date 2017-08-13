@@ -1,6 +1,6 @@
 package org.noahwebster.nwareports.reports;
 
-import org.noahwebster.nwareports.DataRow;
+import org.noahwebster.nwareports.types.StringRow;
 import org.noahwebster.nwareports.DataTable;
 import org.noahwebster.nwareports.Report;
 
@@ -22,7 +22,7 @@ public class ScholarsReport extends Report {
 				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
 				.withColumns("StudentName", "Textbox20")
 				.withColumnProcessor("StudentName", (column, oldValue) -> {
-					DataRow res = new DataRow();
+					StringRow res = new StringRow();
 					Pattern pattern = Pattern.compile("(?<First>\\S+)\\s+(?<Last>\\S+)\\s+[(](?<Id>\\d+)[)]");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find()) {
@@ -38,7 +38,7 @@ public class ScholarsReport extends Report {
 					return res;
 				})
 				.withColumnProcessor("Textbox20", (column, oldValue) -> {
-					DataRow res = new DataRow();
+					StringRow res = new StringRow();
 					Pattern pattern = Pattern.compile("Grade:\\s+(?<Grade>\\d+)");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find())

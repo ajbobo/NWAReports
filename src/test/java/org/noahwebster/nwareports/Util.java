@@ -1,5 +1,7 @@
 package org.noahwebster.nwareports;
 
+import org.noahwebster.nwareports.types.StringRow;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +13,12 @@ public class Util {
 	}
 
 	public static void printTable(DataTable table, int limit) {
-		List<DataRow> theTable = table.getData();
+		List<StringRow> theTable = table.getData();
 		Set<String> columns = theTable.get(0).columnNames();
 		for (String colName : columns)
 			System.out.print(colName + "\t");
 		System.out.println();
-		Iterator<DataRow> iterator = theTable.iterator();
+		Iterator<StringRow> iterator = theTable.iterator();
 		for (int x = 0; (limit == 0 || x < limit) && iterator.hasNext(); x++) {
 			Map<String, String> row = iterator.next();
 			for (String colName : columns)

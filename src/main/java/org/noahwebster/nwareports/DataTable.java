@@ -1,18 +1,22 @@
 package org.noahwebster.nwareports;
 
 import com.opencsv.CSVReader;
+import org.noahwebster.nwareports.types.StringRow;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.net.URL;
 import java.util.*;
 
 public class DataTable {
-	private List<DataRow> data;
+	private List<StringRow> data;
 	private String[] columnNames;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
 	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly) {
 		try {
-			CSVReader reader = new CSVReader(new FileReader(filePath), ',', '"', startRow);
+			FileReader fileReader = getFileReader(filePath);
+			CSVReader reader = new CSVReader(fileReader, ',', '"', startRow);
 
 			// Read the headers of the raw data
 			String[] headers = reader.readNext();
@@ -38,7 +42,7 @@ public class DataTable {
 				ArrayList<String> requestedColumns = new ArrayList<>(Arrays.asList(columnNames != null ? columnNames : headers));
 				generateColumnAliasProcessors(requestedColumns, processors);
 				if (isValidRow) {
-					DataRow dataLine = new DataRow();
+					StringRow dataLine = new StringRow();
 					for (int x = 0; x < nextLine.length; x++) {
 						String curColumn = headers[x];
 						if (requestedColumns.contains(curColumn)) {
@@ -46,7 +50,7 @@ public class DataTable {
 								dataLine.put(curColumn, nextLine[x]);
 							}
 							else {
-								DataRow newCells = processors.get(curColumn).processCell(curColumn, nextLine[x]);
+								StringRow newCells = processors.get(curColumn).processCell(curColumn, nextLine[x]);
 								for (String col : newCells.columnNames())
 									dataLine.put(col, newCells.get(col));
 							}
@@ -66,6 +70,27 @@ public class DataTable {
 		}
 	}
 
+	private FileReader getFileReader(String filePath) throws FileNotFoundException {
+		try {
+			return new FileReader(filePath);
+		}
+		catch (FileNotFoundException ex) {
+			ClassLoader classLoader = getClass().getClassLoader();
+			URL url = classLoader.getResource(filePath);
+			if (url != null)
+				return new FileReader(url.getPath());
+			return null;
+		}
+	}
+
+	public DataTable(List<StringRow> tableData) {
+		this.data = tableData;
+		if (tableData.size() > 1) {
+			this.columnNames = new String[tableData.get(0).columnNames().size()];
+			tableData.get(0).columnNames().toArray(this.columnNames);
+		}
+	}
+
 	private void generateColumnAliasProcessors(List<String> requestedColumns, Map<String, ColumnProcessor> processors) {
 		// For "Column as NewName" requests, create a Processor to do the work
 		ArrayList<String> columnsToRemove = new ArrayList<>();
@@ -76,7 +101,7 @@ public class DataTable {
 				columnsToRemove.add(column);
 				columnsToAdd.add(names[0].trim());
 				processors.put(names[0].trim(), (column1, oldValue) -> {
-					DataRow res = new DataRow();
+					StringRow res = new StringRow();
 					res.put(names[1].trim(), oldValue);
 					return res;
 				});
@@ -86,9 +111,9 @@ public class DataTable {
 		requestedColumns.addAll(columnsToAdd);
 	}
 
-	private boolean isUnique(DataRow dataLine) {
+	private boolean isUnique(StringRow dataLine) {
 		boolean unique = true;
-		for (DataRow curLine : data) {
+		for (StringRow curLine : data) {
 			boolean matchesRow = true;
 			for (String colName : dataLine.columnNames())
 				matchesRow &= curLine.get(colName).equalsIgnoreCase(dataLine.get(colName));
@@ -102,7 +127,7 @@ public class DataTable {
 		return columnNames;
 	}
 
-	public List<DataRow> getData() {
+	public List<StringRow> getData() {
 		return data;
 	}
 
@@ -201,6 +226,6 @@ public class DataTable {
 
 	public interface ColumnProcessor {
 		// Given the column and value of a cell, return a map of the new columns
-		DataRow processCell(String column, String oldValue);
+		StringRow processCell(String column, String oldValue);
 	}
 }
