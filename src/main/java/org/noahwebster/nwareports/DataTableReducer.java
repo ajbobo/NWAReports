@@ -3,11 +3,13 @@ package org.noahwebster.nwareports;
 import org.noahwebster.nwareports.types.GenericRow;
 import org.noahwebster.nwareports.types.StringRow;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 public class DataTableReducer {
+	private static final DecimalFormat decimalFormat = new DecimalFormat("#.##");
 	private String[] keyColumns;
 	private LinkedHashMap<String, Operation> columnOperations;
 
@@ -80,7 +82,7 @@ public class DataTableReducer {
 			for (String column : rawRow.columnNames()) {
 				if (columnOperations.containsKey(column)) {
 					@SuppressWarnings("unchecked") ArrayList<Double> dataList = (ArrayList<Double>)rawRow.get(column);
-					newRow.put(column, Double.toString(columnOperations.get(column).Calculate(dataList)));
+					newRow.put(column, decimalFormat.format(columnOperations.get(column).Calculate(dataList)));
 				}
 				else {
 					newRow.put(column, (String)rawRow.get(column));
