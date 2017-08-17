@@ -1,5 +1,7 @@
 package org.noahwebster.nwareports.reports;
 
+import org.noahwebster.nwareports.DataTableReducer;
+import org.noahwebster.nwareports.DataTableReducer.Operation;
 import org.noahwebster.nwareports.types.StringRow;
 import org.noahwebster.nwareports.DataTable;
 import org.noahwebster.nwareports.Report;
@@ -35,7 +37,7 @@ public class AttendanceReport extends Report {
 
 	@Override
 	public DataTable executeReport() {
-		return new DataTable.Reader()
+		DataTable startingTable = new DataTable.Reader()
 				.withFilePath("C:\\NWAReports\\AttendanceByDay.csv")
 				.withStartRow(3)
 				.withColumns("StudentID", "StudentName", "Date", "Period0", "Period2")
@@ -43,5 +45,15 @@ public class AttendanceReport extends Report {
 				.withColumnProcessor("Period0", typePivot)
 				.withColumnProcessor("Period2", typePivot)
 				.read();
+
+		DataTableReducer reducer = new DataTableReducer.Builder()
+				.withKeyColumns("StudentID", "StudentName")
+				.withOperation("Late", Operation.SUM)
+				.withOperation("Excused", Operation.SUM)
+				.withOperation("Tardy", Operation.SUM)
+				.withOperation("Absent", Operation.SUM)
+				.build();
+
+		return reducer.reduce(startingTable);
 	}
 }
