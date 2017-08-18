@@ -1,10 +1,10 @@
-Add post-processing to Report
-   Have the Attendance report return total attendance by student
-   Display totals of each absense type as columns
+Add DropBox login/integration to read the .csv files
+Add filtering/sorting to the UI - can I do this with Angular?
+   The Report object that is returned could include a list of columns that are available. Could this go into a dropdown?
+Add Table Combiner class
+   Sort of like the Reducer class - take 2 tables, define join columns and columns to return
+Add combination report - ex: Attendance+demographic
 Add parameters to Report
    Student, grade, date range, etc.
+   Can this be done with Angular filtering?
 Allow aggregation by date range
-Add combination report - Attendance+demographic
-** Add Reduce option to DataTable **
-  Provide a list of columns to keep - these are the key
-  Provide a list of columns to reduce, and how they will be reduced (Sum, Max, Avg, etc)
