@@ -2,6 +2,7 @@ package org.noahwebster.nwareports;
 
 import org.noahwebster.nwareports.reports.AttendanceReport;
 import org.noahwebster.nwareports.reports.AvgAttendanceByGrade;
+import org.noahwebster.nwareports.reports.ScholarsByResource;
 import org.noahwebster.nwareports.reports.ScholarsReport;
 
 import java.util.LinkedHashMap;
@@ -15,6 +16,7 @@ public class ReportFactory {
 		reports.put(ScholarsReport.REPORT_NAME, ScholarsReport.class);
 		reports.put(AttendanceReport.REPORT_NAME, AttendanceReport.class);
 		reports.put(AvgAttendanceByGrade.REPORT_NAME, AvgAttendanceByGrade.class);
+		reports.put(ScholarsByResource.REPORT_NAME, ScholarsByResource.class);
 	}
 
 	public static Report getReport(String reportName) {

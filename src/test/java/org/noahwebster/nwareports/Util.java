@@ -25,5 +25,6 @@ public class Util {
 				System.out.print(row.get(colName) + "\t");
 			System.out.println();
 		}
+		System.out.println("Total Rows: " + table.getData().size());
 	}
 }

@@ -84,10 +84,20 @@ public class DataTable {
 	}
 
 	public DataTable(List<StringRow> tableData) {
-		this.data = tableData;
-		if (tableData.size() > 1) {
-			this.columnNames = new String[tableData.get(0).columnNames().size()];
-			tableData.get(0).columnNames().toArray(this.columnNames);
+//		this.data = tableData;
+//		if (tableData.size() > 1) {
+//			this.columnNames = new String[tableData.get(0).columnNames().size()];
+//			tableData.get(0).columnNames().toArray(this.columnNames);
+//		}
+		this(tableData, false);
+	}
+
+	public DataTable(List<StringRow> tableData, boolean uniqueOnly) {
+		this.data = new ArrayList<>();
+		for (StringRow row : tableData) {
+			if (!uniqueOnly || isUnique(row)) {
+				this.data.add(row);
+			}
 		}
 	}
 
