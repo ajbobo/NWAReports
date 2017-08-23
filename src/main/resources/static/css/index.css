@@ -7,7 +7,7 @@
 }
 
 .result-table th {
-    background: lightgrey;
+    background: lightgray;
 }
 
 .result-table {
@@ -15,4 +15,14 @@
     margin-right: 25px;
     margin-bottom: 25px;
     border: 1px solid black;
+}
+
+.inline-form {
+    /*border: 1px dashed;*/
+    text-align: left;
+    /*background: lightgoldenrodyellow;*/
+}
+
+.inline-form p {
+    display: inline-block;
 }

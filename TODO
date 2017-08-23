@@ -1,9 +1,10 @@
+-- High Priority --
 Add DropBox login/integration to read the .csv files
-Add filtering/sorting to the UI - can I do this with Angular?
-   The Report object that is returned could include a list of columns that are available. Could this go into a dropdown?
 Some csv files include last names as two words
    ElementaryReportCard has "Lozano Barron"
-Add combination report - ex: Attendance+demographic
+Return number values as numbers in the final results, so that they can be sorted correctly
+
+-- Low Priority --
 Add parameters to Report
    Student, grade, date range, etc.
    Can this be done with Angular filtering?

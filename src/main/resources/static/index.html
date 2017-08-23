@@ -17,11 +17,18 @@
         <button ng-click="executeReport()">Get Report</button>
     </form>
     <p>Description: {{selectedReport.description}}</p>
+    <form class="inline-form">
+        <p>Search: <input ng-model="query"/></p>
+        <p>Sort By: <select ng-model="sortColumn">
+            <option ng-repeat="col in data.columnNames" value="{{col}}">{{col}}</option>
+        </select>
+        </p>
+    </form>
     <table class="result-table">
         <tr>
             <th ng-repeat="header in data.columnNames">{{header}}</th>
         </tr>
-        <tr ng-repeat="row in data.data">
+        <tr ng-repeat="row in data.data | orderBy:sortColumn | filter:query">
             <td ng-repeat="x in row">{{x}}</td>
         </tr>
     </table>
