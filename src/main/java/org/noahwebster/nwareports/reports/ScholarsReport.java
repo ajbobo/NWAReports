@@ -19,11 +19,11 @@ public class ScholarsReport extends Report {
 	@Override
 	public DataTable executeReport() {
 		return new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
-				.withColumns("StudentName", "Textbox20")
-				.withColumnProcessor("StudentName", (column, oldValue) -> {
+				.withFilePath("C:\\NWAReports\\ElementaryReportCard.csv")
+				.withColumns("Name", "Grade")
+				.withColumnProcessor("Name", (column, oldValue) -> {
 					StringRow res = new StringRow();
-					Pattern pattern = Pattern.compile("(?<First>\\S+)\\s+(?<Last>\\S+)\\s+[(](?<Id>\\d+)[)]");
+					Pattern pattern = Pattern.compile("(?<Last>.+),\\s+(?<First>.+)\\s+[(](?<Id>\\d+)[)]");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find()) {
 						res.put("FirstName", matcher.group("First"));
@@ -35,16 +35,6 @@ public class ScholarsReport extends Report {
 						res.put("LastName", oldValue);
 						res.put("Id", "0");
 					}
-					return res;
-				})
-				.withColumnProcessor("Textbox20", (column, oldValue) -> {
-					StringRow res = new StringRow();
-					Pattern pattern = Pattern.compile("Grade:\\s+(?<Grade>\\d+)");
-					Matcher matcher = pattern.matcher(oldValue);
-					if (matcher.find())
-						res.put("Grade", matcher.group("Grade"));
-					else
-						res.put("Grade", oldValue);
 					return res;
 				})
 				.uniqueOnly()
