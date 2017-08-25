@@ -2,7 +2,14 @@
 Add DropBox login/integration to read the .csv files
 Some csv files include last names as two words
    ElementaryReportCard has "Lozano Barron"
+   Fixed this for at least 1 report - it is still an issue in others?
 Return number values as numbers in the final results, so that they can be sorted correctly
+Improved UI
+Add button to save result table as .csv
+
+-- Medium Priority --
+Add UI option to hide columns from result table
+  Some tables could have tons of columns, give user option to hide ones they aren't interested in
 
 -- Low Priority --
 Add parameters to Report
