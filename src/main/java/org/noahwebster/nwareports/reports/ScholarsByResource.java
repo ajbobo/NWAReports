@@ -9,17 +9,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ScholarsByResource extends Report {
-	public static final String REPORT_NAME = "Scholars By Resource";
+	public static final String REPORT_NAME = "Scholars By Resource (2016)";
 
 	public ScholarsByResource() {
 		name = REPORT_NAME;
-		description = "Scholars by resources";
+		description = "Scholars by resources - 2016";
 	}
 
 	@Override
 	public DataTable executeReport() {
 		DataTable scholars = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\ElementaryReportCard.csv")
+				.withFilePath("C:\\NWAReports\\ElementaryReportCard_16.csv")
 				.withColumns("Grade", "Name")
 				.withColumnProcessor("Name", (column, oldValue) -> {
 					StringRow res = new StringRow();
@@ -41,7 +41,7 @@ public class ScholarsByResource extends Report {
 				.read();
 
 		DataTable resources = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\SpEd.csv")
+				.withFilePath("C:\\NWAReports\\SpEd_16.csv")
 				.withColumns("ResourceType", "ident as Id")
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))
 				.read();

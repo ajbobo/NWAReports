@@ -8,18 +8,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ScholarsReport extends Report {
-	public static final String REPORT_NAME = "Scholars";
+	public static final String REPORT_NAME = "Scholars (2016)";
 
 	public ScholarsReport() {
 		name = REPORT_NAME;
-		description = "List of Scholars";
+		description = "List of Scholars - 2016";
 	}
 
 
 	@Override
 	public DataTable executeReport() {
 		return new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\StudentAssessment.csv")
+				.withFilePath("C:\\NWAReports\\StudentAssessment_16.csv")
 				.withColumns("StudentName", "Textbox20")
 				.withColumnProcessor("StudentName", (column, oldValue) -> {
 					StringRow res = new StringRow();

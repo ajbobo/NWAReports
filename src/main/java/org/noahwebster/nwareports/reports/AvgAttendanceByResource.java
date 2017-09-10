@@ -9,11 +9,11 @@ import org.noahwebster.nwareports.types.StringRow;
 import java.util.LinkedHashMap;
 
 public class AvgAttendanceByResource extends Report {
-	public static final String REPORT_NAME = "Average Attendance By Resource";
+	public static final String REPORT_NAME = "Average Attendance By Resource (2016)";
 
 	public AvgAttendanceByResource() {
 		name = REPORT_NAME;
-		description = "Average attendance by resources";
+		description = "Average attendance by resources - 2016";
 	}
 
 	private static LinkedHashMap<String, String> typeMap;
@@ -38,7 +38,7 @@ public class AvgAttendanceByResource extends Report {
 	@Override
 	public DataTable executeReport() {
 		DataTable scholars = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\AttendanceByDay.csv")
+				.withFilePath("C:\\NWAReports\\AttendanceByDay_16.csv")
 				.withStartRow(3)
 				.withColumns("StudentID as Id", "Grade", "Date", "Period0", "Period2")
 				.withFilter(new DataTable.Filter("Date", DataTable.FilterType.NOT_EQUALS, ""))
@@ -47,7 +47,7 @@ public class AvgAttendanceByResource extends Report {
 				.read();
 
 		DataTable resources = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\SpEd.csv")
+				.withFilePath("C:\\NWAReports\\SpEd_16.csv")
 				.withColumns("ResourceType", "ident as Id")
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))
 				.read();
