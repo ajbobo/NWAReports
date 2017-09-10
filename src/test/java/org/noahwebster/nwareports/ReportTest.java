@@ -1,12 +1,16 @@
 package org.noahwebster.nwareports;
 
-import org.noahwebster.nwareports.reports.AttendanceReport;
-import org.noahwebster.nwareports.reports.AvgAttendanceByGrade;
-import org.noahwebster.nwareports.reports.AvgAttendanceByResource;
-import org.noahwebster.nwareports.reports.ScholarsByResource;
+import org.noahwebster.nwareports.reports.*;
 import org.testng.annotations.Test;
 
 public class ReportTest {
+
+	@Test
+	public void testScholarsReport() {
+		ScholarsReport report = new ScholarsReport();
+		DataTable table = report.executeReport();
+		Util.printTable(table);
+	}
 
 	@Test
 	public void testAttendanceReport() {

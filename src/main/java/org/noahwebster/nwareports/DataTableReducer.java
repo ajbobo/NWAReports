@@ -20,6 +20,9 @@ public class DataTableReducer {
 
 	public DataTable reduce(DataTable startingTable) {
 		List<StringRow> startingData = startingTable.getData();
+		if (null == startingData)
+			return startingTable;
+
 		List<GenericRow> dataToReduce = getDataToReduce(startingData);
 		List<StringRow> results = calculateReducedData(dataToReduce);
 		return new DataTable(results);

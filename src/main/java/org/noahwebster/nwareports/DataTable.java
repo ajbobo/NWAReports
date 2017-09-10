@@ -11,6 +11,7 @@ import java.util.*;
 public class DataTable {
 	private List<StringRow> data;
 	private String[] columnNames;
+	private List<String> errors;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
 	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly) {
@@ -64,23 +65,19 @@ public class DataTable {
 			this.columnNames = new String[data.get(0).columnNames().size()];
 			data.get(0).columnNames().toArray(this.columnNames);
 		}
-		catch (Exception ex) {
-			ex.printStackTrace();
+		catch (FileNotFoundException ex) {
 			this.data = null;
+			addError("Unable to find or open file: " + ex.getLocalizedMessage());
+		}
+		catch (Exception ex) {
+			this.data = null;
+			addError("An unknown error occurred: " + ex.getMessage());
 		}
 	}
 
-	private FileReader getFileReader(String filePath) throws FileNotFoundException {
-		try {
-			return new FileReader(filePath);
-		}
-		catch (FileNotFoundException ex) {
-			ClassLoader classLoader = getClass().getClassLoader();
-			URL url = classLoader.getResource(filePath);
-			if (url != null)
-				return new FileReader(url.getPath());
-			return null;
-		}
+	public DataTable() {
+		this.data = null;
+		this.errors = null;
 	}
 
 	public DataTable(List<StringRow> tableData) {
@@ -98,6 +95,25 @@ public class DataTable {
 		if (tableData.size() > 0) {
 			Set<String> columns = tableData.get(0).columnNames();
 			this.columnNames = columns.toArray(new String[columns.size()]);
+		}
+	}
+
+	public void addError(String message) {
+		if (null == errors)
+			errors = new ArrayList<>();
+		errors.add(message);
+	}
+
+	private FileReader getFileReader(String filePath) throws FileNotFoundException {
+		try {
+			return new FileReader(filePath);
+		}
+		catch (FileNotFoundException ex) {
+			ClassLoader classLoader = getClass().getClassLoader();
+			URL url = classLoader.getResource(filePath);
+			if (url != null)
+				return new FileReader(url.getPath());
+			throw new FileNotFoundException(filePath);
 		}
 	}
 
@@ -140,6 +156,8 @@ public class DataTable {
 	public List<StringRow> getData() {
 		return data;
 	}
+
+	public List<String> getErrors() { return errors; }
 
 	public static class Reader {
 		private String filePath;

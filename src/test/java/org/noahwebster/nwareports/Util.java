@@ -13,18 +13,25 @@ public class Util {
 	}
 
 	public static void printTable(DataTable table, int limit) {
-		List<StringRow> theTable = table.getData();
-		Set<String> columns = theTable.get(0).columnNames();
-		for (String colName : columns)
-			System.out.print(colName + "\t");
-		System.out.println();
-		Iterator<StringRow> iterator = theTable.iterator();
-		for (int x = 0; (limit == 0 || x < limit) && iterator.hasNext(); x++) {
-			Map<String, String> row = iterator.next();
+		if (table.getData() != null) {
+			List<StringRow> theTable = table.getData();
+			Set<String> columns = theTable.get(0).columnNames();
 			for (String colName : columns)
-				System.out.print(row.get(colName) + "\t");
+				System.out.print(colName + "\t");
 			System.out.println();
+			Iterator<StringRow> iterator = theTable.iterator();
+			for (int x = 0; (limit == 0 || x < limit) && iterator.hasNext(); x++) {
+				Map<String, String> row = iterator.next();
+				for (String colName : columns)
+					System.out.print(row.get(colName) + "\t");
+				System.out.println();
+			}
+			System.out.println("Total Rows: " + table.getData().size());
 		}
-		System.out.println("Total Rows: " + table.getData().size());
+		if (table.getErrors() != null) {
+			System.out.println("** Errors **");
+			for (String msg : table.getErrors())
+				System.out.println(msg);
+		}
 	}
 }

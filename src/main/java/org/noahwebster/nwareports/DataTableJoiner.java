@@ -16,6 +16,9 @@ public class DataTableJoiner {
 	}
 
 	public DataTable joinTables(DataTable left, DataTable right) {
+		if (null == left.getData() || null == right.getData())
+			return getErrorTable(left, right);
+
 		ArrayList<StringRow> results = new ArrayList<>();
 		for (StringRow leftRow : left.getData()) {
 			for (StringRow rightRow : right.getData()) {
@@ -25,6 +28,15 @@ public class DataTableJoiner {
 			}
 		}
 		return new DataTable(results, uniqueOnly);
+	}
+
+	private DataTable getErrorTable(DataTable left, DataTable right) {
+		DataTable errorTable = new DataTable();
+		for (String error : left.getErrors())
+			errorTable.addError(error);
+		for (String error : right.getErrors())
+			errorTable.addError(error);
+		return errorTable;
 	}
 
 	private boolean rowsMatch(StringRow leftRow, StringRow rightRow) {
