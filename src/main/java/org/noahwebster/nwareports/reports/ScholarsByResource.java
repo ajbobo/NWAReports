@@ -23,7 +23,7 @@ public class ScholarsByResource extends Report {
 				.withColumns("Grade", "Name")
 				.withColumnProcessor("Name", (column, oldValue) -> {
 					StringRow res = new StringRow();
-					Pattern pattern = Pattern.compile("(?<Last>\\S+),\\s+(?<First>\\S+)\\s+[(](?<Id>\\d+)[)]");
+					Pattern pattern = Pattern.compile("(?<Last>.+),\\s+(?<First>\\S+)\\s+[(](?<Id>\\d+)[)]");
 					Matcher matcher = pattern.matcher(oldValue);
 					if (matcher.find()) {
 						res.put("FirstName", matcher.group("First"));
