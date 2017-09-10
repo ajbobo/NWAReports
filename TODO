@@ -1,7 +1,10 @@
+-- Reports --
+Attendance vs. Progress Reports
+Attendance vs. Special Programs
+Attendance vs. Demographics
+
 -- High Priority --
 Add DropBox login/integration to read the .csv files
-Some csv files include last names as two words
-   ElementaryReportCard has "Lozano Barron"
 Return number values as numbers in the final results, so that they can be sorted correctly
 
 -- Low Priority --
