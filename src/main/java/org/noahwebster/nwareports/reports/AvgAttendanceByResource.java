@@ -37,7 +37,7 @@ public class AvgAttendanceByResource extends Report {
 
 	@Override
 	public DataTable executeReport() {
-		DataTable scholars = new DataTable.Reader()
+		DataTable scholars = new DataTable.Builder()
 				.withFilePath("AttendanceByDay_16.csv")
 				.withStartRow(3)
 				.withColumns("StudentID as Id", "Grade", "Date", "Period0", "Period2")
@@ -46,7 +46,7 @@ public class AvgAttendanceByResource extends Report {
 				.withColumnProcessor("Period2", typePivot)
 				.read();
 
-		DataTable resources = new DataTable.Reader()
+		DataTable resources = new DataTable.Builder()
 				.withFilePath("SpEd_16.csv")
 				.withColumns("ResourceType", "ident as Id")
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))

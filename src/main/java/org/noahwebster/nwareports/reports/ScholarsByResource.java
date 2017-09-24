@@ -18,7 +18,7 @@ public class ScholarsByResource extends Report {
 
 	@Override
 	public DataTable executeReport() {
-		DataTable scholars = new DataTable.Reader()
+		DataTable scholars = new DataTable.Builder()
 				.withFilePath("ElementaryReportCard_16.csv")
 				.withColumns("Grade", "Name")
 				.withColumnProcessor("Name", (column, oldValue) -> {
@@ -40,7 +40,7 @@ public class ScholarsByResource extends Report {
 				.uniqueOnly()
 				.read();
 
-		DataTable resources = new DataTable.Reader()
+		DataTable resources = new DataTable.Builder()
 				.withFilePath("SpEd_16.csv")
 				.withColumns("ResourceType", "ident as Id")
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))

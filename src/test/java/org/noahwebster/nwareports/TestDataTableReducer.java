@@ -9,7 +9,7 @@ public class TestDataTableReducer {
 
 	@BeforeTest
 	public void beforeTest() {
-		testData = new DataTable.Reader()
+		testData = new DataTable.Builder()
 				.withFilePath("testTable1.csv")
 				.read();
 	}

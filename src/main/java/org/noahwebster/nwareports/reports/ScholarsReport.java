@@ -18,7 +18,7 @@ public class ScholarsReport extends Report {
 
 	@Override
 	public DataTable executeReport() {
-		return new DataTable.Reader()
+		return new DataTable.Builder()
 				.withFilePath("EnrolledStudents.csv")
 				.withColumns("StudentName", "StudentID", "GradeLevel", "Gender", "Advisor")
 				.withColumnProcessor("StudentName", (column, oldValue) -> {

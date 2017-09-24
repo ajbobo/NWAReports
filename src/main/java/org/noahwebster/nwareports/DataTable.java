@@ -4,7 +4,7 @@ import com.opencsv.CSVReader;
 import org.noahwebster.nwareports.types.StringRow;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.Reader;
 import java.util.*;
 
 public class DataTable {
@@ -15,7 +15,7 @@ public class DataTable {
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
 	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly) {
 		try {
-			FileReader fileReader = FileManager.getFileReader(filePath);
+			Reader fileReader = FileManager.getFileReader(filePath);
 			CSVReader reader = new CSVReader(fileReader, ',', '"', startRow);
 
 			// Read the headers of the raw data
@@ -145,7 +145,7 @@ public class DataTable {
 
 	public List<String> getErrors() { return errors; }
 
-	public static class Reader {
+	public static class Builder {
 		private String filePath;
 		private int startRow;
 		private String[] columnNames;
@@ -153,7 +153,7 @@ public class DataTable {
 		private Map<String, ColumnProcessor> processors;
 		private boolean uniqueOnly;
 
-		public Reader() {
+		public Builder() {
 			this.filePath = null;
 			this.startRow = 0;
 			this.columnNames = null;
@@ -162,32 +162,32 @@ public class DataTable {
 			this.uniqueOnly = false;
 		}
 
-		public Reader withFilePath(String filePath) {
+		public Builder withFilePath(String filePath) {
 			this.filePath = filePath;
 			return this;
 		}
 
-		public Reader withStartRow(int startRow) {
+		public Builder withStartRow(int startRow) {
 			this.startRow = startRow;
 			return this;
 		}
 
-		public Reader withColumns(String... columnNames) {
+		public Builder withColumns(String... columnNames) {
 			this.columnNames = columnNames;
 			return this;
 		}
 
-		public Reader withFilter(Filter filter) {
+		public Builder withFilter(Filter filter) {
 			this.filters.add(filter);
 			return this;
 		}
 
-		public Reader withColumnProcessor(String columnName, ColumnProcessor processor) {
+		public Builder withColumnProcessor(String columnName, ColumnProcessor processor) {
 			this.processors.put(columnName, processor);
 			return this;
 		}
 
-		public Reader uniqueOnly() {
+		public Builder uniqueOnly() {
 			this.uniqueOnly = true;
 			return this;
 		}

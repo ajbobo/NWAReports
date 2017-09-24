@@ -2,6 +2,7 @@ package org.noahwebster.nwareports;
 
 import org.noahwebster.nwareports.types.StringRow;
 
+import java.io.FileReader;
 import java.util.*;
 
 public class Util {
@@ -55,5 +56,17 @@ public class Util {
 		}
 
 		return formats;
+	}
+
+	public static String getProperty(String property, String fileName) {
+		try {
+			Properties prop = new Properties();
+			prop.load(new FileReader(fileName));
+			return prop.getProperty(property);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

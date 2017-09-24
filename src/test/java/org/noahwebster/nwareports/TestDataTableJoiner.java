@@ -10,10 +10,10 @@ public class TestDataTableJoiner {
 
 	@BeforeTest
 	public void beforeTest() {
-		table1 = new DataTable.Reader()
+		table1 = new DataTable.Builder()
 				.withFilePath("testTable1.csv")
 				.read();
-		table2 = new DataTable.Reader()
+		table2 = new DataTable.Builder()
 				.withFilePath("testTable2.csv")
 				.read();
 	}

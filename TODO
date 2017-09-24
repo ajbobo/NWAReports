@@ -5,9 +5,12 @@ Attendance vs. Demographics
 
 -- High Priority --
 Add DropBox login/integration to read the .csv files
+   Update UI and Spring app to get an access token for FileManager
+   Find a good way to set tests to use Dropbox vs. local
 Return number values as numbers in the final results, so that they can be sorted correctly
 Improved UI
 Add button to save result table as .csv
+Create tests for Reports using handmade data?
 
 -- Medium Priority --
 Add UI option to hide columns from result table
