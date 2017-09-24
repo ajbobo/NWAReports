@@ -38,7 +38,7 @@ public class AvgAttendanceByGrade extends Report {
 	@Override
 	public DataTable executeReport() {
 		DataTable startingTable = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\AttendanceByDay_16.csv")
+				.withFilePath("AttendanceByDay_16.csv")
 				.withStartRow(3)
 				.withColumns("StudentID", "Grade", "Date", "Period0", "Period2")
 				.withFilter(new DataTable.Filter("Date", DataTable.FilterType.NOT_EQUALS, ""))

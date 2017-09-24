@@ -19,7 +19,7 @@ public class ScholarsByResource extends Report {
 	@Override
 	public DataTable executeReport() {
 		DataTable scholars = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\ElementaryReportCard_16.csv")
+				.withFilePath("ElementaryReportCard_16.csv")
 				.withColumns("Grade", "Name")
 				.withColumnProcessor("Name", (column, oldValue) -> {
 					StringRow res = new StringRow();
@@ -41,7 +41,7 @@ public class ScholarsByResource extends Report {
 				.read();
 
 		DataTable resources = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\SpEd_16.csv")
+				.withFilePath("SpEd_16.csv")
 				.withColumns("ResourceType", "ident as Id")
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))
 				.read();

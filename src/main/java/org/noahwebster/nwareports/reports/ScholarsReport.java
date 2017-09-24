@@ -19,7 +19,7 @@ public class ScholarsReport extends Report {
 	@Override
 	public DataTable executeReport() {
 		return new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\EnrolledStudents.csv")
+				.withFilePath("EnrolledStudents.csv")
 				.withColumns("StudentName", "StudentID", "GradeLevel", "Gender", "Advisor")
 				.withColumnProcessor("StudentName", (column, oldValue) -> {
 					StringRow res = new StringRow();

@@ -1,5 +1,6 @@
 package org.noahwebster.nwareports;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -26,18 +27,32 @@ public class TestDataTableJoiner {
 
 		DataTable res = joiner.joinTables(table1, table2);
 		Util.printTable(res);
+		Assert.assertEquals(res.getData().size(), 32);
+	}
+
+	@Test
+	public void testJoinOneColumn_Duplicates() {
+		DataTableJoiner joiner = new DataTableJoiner.Builder()
+				.joinColumns("One")
+				.reportColumns("One", "Three", "Four")
+				.build();
+
+		DataTable res = joiner.joinTables(table1, table2);
+		Util.printTable(res);
+		Assert.assertEquals(res.getData().size(), 32);
 	}
 
 	@Test
 	public void testJoinOneColumn_Unique() {
 		DataTableJoiner joiner = new DataTableJoiner.Builder()
 				.joinColumns("One")
-				.reportColumns("One", "Two", "Value1", "Value2", "Three", "Four")
+				.reportColumns("One", "Three", "Four")
 				.uniqueOnly()
 				.build();
 
 		DataTable res = joiner.joinTables(table1, table2);
 		Util.printTable(res);
+		Assert.assertEquals(res.getData().size(), 6);
 	}
 
 	@Test
@@ -50,5 +65,6 @@ public class TestDataTableJoiner {
 
 		DataTable res = joiner.joinTables(table1, table2);
 		Util.printTable(res);
+		Assert.assertEquals(res.getData().size(), 6);
 	}
 }

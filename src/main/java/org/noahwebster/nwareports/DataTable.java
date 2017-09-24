@@ -5,7 +5,6 @@ import org.noahwebster.nwareports.types.StringRow;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.net.URL;
 import java.util.*;
 
 public class DataTable {
@@ -16,7 +15,7 @@ public class DataTable {
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
 	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly) {
 		try {
-			FileReader fileReader = getFileReader(filePath);
+			FileReader fileReader = FileManager.getFileReader(filePath);
 			CSVReader reader = new CSVReader(fileReader, ',', '"', startRow);
 
 			// Read the headers of the raw data
@@ -102,19 +101,6 @@ public class DataTable {
 		if (null == errors)
 			errors = new ArrayList<>();
 		errors.add(message);
-	}
-
-	private FileReader getFileReader(String filePath) throws FileNotFoundException {
-		try {
-			return new FileReader(filePath);
-		}
-		catch (FileNotFoundException ex) {
-			ClassLoader classLoader = getClass().getClassLoader();
-			URL url = classLoader.getResource(filePath);
-			if (url != null)
-				return new FileReader(url.getPath());
-			throw new FileNotFoundException(filePath);
-		}
 	}
 
 	private void generateColumnAliasProcessors(List<String> requestedColumns, Map<String, ColumnProcessor> processors) {

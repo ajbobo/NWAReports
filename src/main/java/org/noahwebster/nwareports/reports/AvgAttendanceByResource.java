@@ -38,7 +38,7 @@ public class AvgAttendanceByResource extends Report {
 	@Override
 	public DataTable executeReport() {
 		DataTable scholars = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\AttendanceByDay_16.csv")
+				.withFilePath("AttendanceByDay_16.csv")
 				.withStartRow(3)
 				.withColumns("StudentID as Id", "Grade", "Date", "Period0", "Period2")
 				.withFilter(new DataTable.Filter("Date", DataTable.FilterType.NOT_EQUALS, ""))
@@ -47,7 +47,7 @@ public class AvgAttendanceByResource extends Report {
 				.read();
 
 		DataTable resources = new DataTable.Reader()
-				.withFilePath("C:\\NWAReports\\SpEd_16.csv")
+				.withFilePath("SpEd_16.csv")
 				.withColumns("ResourceType", "ident as Id")
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))
 				.read();
