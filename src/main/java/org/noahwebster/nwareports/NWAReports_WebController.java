@@ -24,6 +24,8 @@ public class NWAReports_WebController {
 	private static DbxWebAuth auth = null;
 	private static String redirectUrl;
 
+	private boolean inAuthProcess = false;
+
 	private void setupAuth(HttpServletRequest request) {
 		DbxRequestConfig requestConfig = new DbxRequestConfig("nwareports/0.1");
 		DbxAppInfo appInfo = new DbxAppInfo(APP_ID, APP_SECRET);
@@ -59,6 +61,7 @@ public class NWAReports_WebController {
 
 	@RequestMapping("/login")
 	public SimpleMessage login(HttpServletRequest request, HttpSession httpSession) {
+		inAuthProcess = true;
 		if (auth == null)
 			setupAuth(request);
 
@@ -79,49 +82,46 @@ public class NWAReports_WebController {
 		String sessionKey = "dropbox-auth-csrf-token";
 		DbxSessionStore csrfTokenStore = new DbxStandardSessionStore(session, sessionKey);
 
-		DbxAuthFinish authFinish;
+		DbxAuthFinish authFinish = null;
 		try {
 			authFinish = auth.finishFromRedirect(redirectUrl, csrfTokenStore, request.getParameterMap());
 		}
 		catch (DbxWebAuth.BadRequestException ex) {
 //			log("On /dropbox-auth-finish: Bad request: " + ex.getMessage());
 			response.sendError(400);
-			request.getSession().setAttribute(TOKEN_SESSION_KEY, null);
-			return;
 		}
 		catch (DbxWebAuth.BadStateException ex) {
 			// Send them back to the start of the auth flow.
 			response.sendRedirect(REDIRECT_URI);
-			request.getSession().setAttribute(TOKEN_SESSION_KEY, null);
-			return;
 		}
 		catch (DbxWebAuth.CsrfException ex) {
 //			log("On /dropbox-auth-finish: CSRF mismatch: " + ex.getMessage());
 			response.sendError(403, "Forbidden.");
-			request.getSession().setAttribute(TOKEN_SESSION_KEY, null);
-			return;
 		}
 		catch (DbxWebAuth.NotApprovedException ex) {
 			// When Dropbox asked "Do you want to allow this app to access your
 			// Dropbox account?", the user clicked "No".
-			request.getSession().setAttribute(TOKEN_SESSION_KEY, null);
-			return;
 		}
 		catch (DbxWebAuth.ProviderException | DbxException ex) {
 //			log("On /dropbox-auth-finish: Auth failed: " + ex.getMessage());
 			response.sendError(503, "Error communicating with Dropbox.");
-			request.getSession().setAttribute(TOKEN_SESSION_KEY, null);
-			return;
 		}
-		String accessToken = authFinish.getAccessToken();
-		request.getSession().setAttribute(TOKEN_SESSION_KEY, accessToken);
+
+		if (authFinish != null) {
+			String accessToken = authFinish.getAccessToken();
+			request.getSession().setAttribute(TOKEN_SESSION_KEY, accessToken);
+		}
+		else {
+			request.getSession().setAttribute(TOKEN_SESSION_KEY, null);
+		}
+		inAuthProcess = false;
 	}
 
 	@RequestMapping("/isconnected")
 	public SimpleMessage isConnected() {
-//		if (null != fileManager && fileManager.hasDbAccessToken())
-//			return new SimpleMessage("true");
-		return new SimpleMessage("false");
+		if (inAuthProcess)
+			return new SimpleMessage("false");
+		return new SimpleMessage("true");
 	}
 
 	class SimpleMessage {
