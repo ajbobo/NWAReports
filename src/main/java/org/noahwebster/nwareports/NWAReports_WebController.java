@@ -17,14 +17,20 @@ public class NWAReports_WebController {
 
 	private final static String APP_ID = "7kgahrejtycnnpx";
 	private final static String APP_SECRET = "di01xk7ljjh4pki";
-	private final static String REDIRECT_URI = "http://localhost:8080/dbredirect";
+	private final static String REDIRECT_URI = "/dbredirect";
 
 	private static DbxWebAuth auth = null;
+	private static String redirectUrl;
 
-	private void setupAuth() {
+	private void setupAuth(HttpServletRequest request) {
 		DbxRequestConfig requestConfig = new DbxRequestConfig("nwareports/0.1");
 		DbxAppInfo appInfo = new DbxAppInfo(APP_ID, APP_SECRET);
 		auth = new DbxWebAuth(requestConfig, appInfo);
+
+		String fullpath = new String(request.getRequestURL());
+		String endpoint = request.getRequestURI();
+		String callingdomain = fullpath.replace(endpoint, "");
+		redirectUrl = callingdomain + REDIRECT_URI;
 	}
 
 	@RequestMapping("/reports")
@@ -45,13 +51,13 @@ public class NWAReports_WebController {
 	}
 
 	@RequestMapping("/login")
-	public SimpleMessage login(HttpSession httpSession) {
+	public SimpleMessage login(HttpServletRequest request, HttpSession httpSession) {
 		if (auth == null)
-			setupAuth();
+			setupAuth(request);
 
 		String sessionKey = "dropbox-auth-csrf-token";
 		DbxWebAuth.Request authRequest = DbxWebAuth.newRequestBuilder()
-				.withRedirectUri(REDIRECT_URI, new DbxStandardSessionStore(httpSession, sessionKey))
+				.withRedirectUri(redirectUrl, new DbxStandardSessionStore(httpSession, sessionKey))
 				.build();
 
 		String authorizeUrl = auth.authorize(authRequest);
@@ -68,7 +74,7 @@ public class NWAReports_WebController {
 
 		DbxAuthFinish authFinish;
 		try {
-			authFinish = auth.finishFromRedirect(REDIRECT_URI, csrfTokenStore, request.getParameterMap());
+			authFinish = auth.finishFromRedirect(redirectUrl, csrfTokenStore, request.getParameterMap());
 		}
 		catch (DbxWebAuth.BadRequestException ex) {
 //			log("On /dropbox-auth-finish: Bad request: " + ex.getMessage());
