@@ -1,6 +1,4 @@
-package org.noahwebster.nwareports;
-
-import org.noahwebster.nwareports.reports.*;
+package org.noahwebster.nwareports.reports;
 
 import java.util.LinkedHashMap;
 

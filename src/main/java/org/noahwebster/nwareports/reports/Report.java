@@ -1,4 +1,7 @@
-package org.noahwebster.nwareports;
+package org.noahwebster.nwareports.reports;
+
+import org.noahwebster.nwareports.data.DataTable;
+import org.noahwebster.nwareports.data.FileManager;
 
 @SuppressWarnings("unused")
 public abstract class Report {

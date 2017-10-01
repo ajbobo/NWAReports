@@ -1,4 +1,4 @@
-package org.noahwebster.nwareports;
+package org.noahwebster.nwareports.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

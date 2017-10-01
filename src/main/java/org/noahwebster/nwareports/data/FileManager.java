@@ -1,4 +1,4 @@
-package org.noahwebster.nwareports;
+package org.noahwebster.nwareports.data;
 
 import com.dropbox.core.DbxDownloader;
 import com.dropbox.core.DbxException;

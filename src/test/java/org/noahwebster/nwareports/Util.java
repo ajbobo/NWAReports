@@ -1,5 +1,6 @@
 package org.noahwebster.nwareports;
 
+import org.noahwebster.nwareports.data.DataTable;
 import org.noahwebster.nwareports.types.StringRow;
 
 import java.io.FileReader;

@@ -1,4 +1,4 @@
-package org.noahwebster.nwareports;
+package org.noahwebster.nwareports.data;
 
 import com.opencsv.CSVReader;
 import org.noahwebster.nwareports.types.StringRow;

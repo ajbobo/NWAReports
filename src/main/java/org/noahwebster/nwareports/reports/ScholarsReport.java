@@ -1,7 +1,6 @@
 package org.noahwebster.nwareports.reports;
 
-import org.noahwebster.nwareports.DataTable;
-import org.noahwebster.nwareports.Report;
+import org.noahwebster.nwareports.data.DataTable;
 import org.noahwebster.nwareports.types.StringRow;
 
 import java.util.regex.Matcher;

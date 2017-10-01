@@ -1,5 +1,7 @@
 package org.noahwebster.nwareports;
 
+import org.noahwebster.nwareports.data.DataTable;
+import org.noahwebster.nwareports.data.FileManager;
 import org.noahwebster.nwareports.types.StringRow;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;

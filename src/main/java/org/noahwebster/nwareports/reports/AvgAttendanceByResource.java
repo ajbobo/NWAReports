@@ -1,9 +1,8 @@
 package org.noahwebster.nwareports.reports;
 
-import org.noahwebster.nwareports.DataTable;
-import org.noahwebster.nwareports.DataTableJoiner;
-import org.noahwebster.nwareports.DataTableReducer;
-import org.noahwebster.nwareports.Report;
+import org.noahwebster.nwareports.data.DataTable;
+import org.noahwebster.nwareports.data.DataTableJoiner;
+import org.noahwebster.nwareports.data.DataTableReducer;
 import org.noahwebster.nwareports.types.StringRow;
 
 import java.util.LinkedHashMap;
