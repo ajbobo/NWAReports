@@ -62,4 +62,9 @@ public class FileManager {
 	public static void setDbAccessToken(String dbAccessToken) {
 		FileManager.dbAccessToken = dbAccessToken;
 	}
+
+	public static boolean hasDbAccessToken() {
+//		System.out.println("AccessToken: " + (dbAccessToken != null ? dbAccessToken : "<<null>>"));
+		return FileManager.dbAccessToken != null;
+	}
 }

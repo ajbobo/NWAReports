@@ -11,6 +11,13 @@
 <h1>Noah Webster Academy Reports</h1>
 
 <div>
+    <form>
+        <label>Dropbox login</label>
+        <button ng-click="login()">Login</button>
+    </form>
+</div>
+
+<div>
     <p>Reports</p>
     <form>
         <label>Select a report: <select ng-model="selectedReport" ng-options="x.name for x in reports"></select></label>
