@@ -44,13 +44,13 @@ public class AvgAttendanceByResource extends Report {
 				.withFilter(new DataTable.Filter("Date", DataTable.FilterType.NOT_EQUALS, ""))
 				.withColumnProcessor("Period0", typePivot)
 				.withColumnProcessor("Period2", typePivot)
-				.read();
+				.read(fileManager);
 
 		DataTable resources = new DataTable.Builder()
 				.withFilePath("SpEd_16.csv")
 				.withColumns("ResourceType", "ident as Id")
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))
-				.read();
+				.read(fileManager);
 
 		DataTableJoiner joiner = new DataTableJoiner.Builder()
 				.joinColumns("Id")

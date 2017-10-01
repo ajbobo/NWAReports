@@ -1,17 +1,25 @@
 package org.noahwebster.nwareports;
 
 import org.noahwebster.nwareports.types.StringRow;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TestDataTable {
+	private FileManager fileManager;
+
+	@BeforeTest
+	public void beforeTest() {
+		fileManager = new FileManager();
+	}
+
 	@Test
 	public void testDataTable() {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")
-				.read();
+				.read(fileManager);
 		Util.printTable(table);
 	}
 
@@ -20,7 +28,7 @@ public class TestDataTable {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("AttendanceByDay_16.csv")
 				.withStartRow(3)
-				.read();
+				.read(fileManager);
 		Util.printTable(table, 15);
 	}
 
@@ -29,7 +37,7 @@ public class TestDataTable {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")
 				.withColumns("Textbox20", "StudentName")
-				.read();
+				.read(fileManager);
 		Util.printTable(table);
 	}
 
@@ -39,7 +47,7 @@ public class TestDataTable {
 				.withFilePath("StudentAssessment_16.csv")
 				.withColumns("Textbox20 as Grade", "StudentName")
 				.uniqueOnly()
-				.read();
+				.read(fileManager);
 		Util.printTable(table);
 	}
 
@@ -75,7 +83,7 @@ public class TestDataTable {
 					return res;
 				})
 				.uniqueOnly()
-				.read();
+				.read(fileManager);
 		Util.printTable(table, 5);
 	}
 
@@ -84,7 +92,7 @@ public class TestDataTable {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")
 				.withColumns("Textbox20 as Grade", "  StudentName   as    Student Name    ")
-				.read();
+				.read(fileManager);
 		Util.printTable(table);
 	}
 
@@ -93,7 +101,7 @@ public class TestDataTable {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")
 				.withFilter(new DataTable.Filter("Textbox20", DataTable.FilterType.EQUALS, "Grade:  2"))
-				.read();
+				.read(fileManager);
 		Util.printTable(table);
 	}
 
@@ -103,7 +111,7 @@ public class TestDataTable {
 				.withFilePath("StudentAssessment_16.csv")
 				.withFilter(new DataTable.Filter("ScoreMethodTitle1", DataTable.FilterType.EQUALS, "Proficiency"))
 				.withFilter(new DataTable.Filter("Category", DataTable.FilterType.EQUALS, " 2016"))
-				.read();
+				.read(fileManager);
 		Util.printTable(table);
 	}
 
@@ -124,7 +132,7 @@ public class TestDataTable {
 					return res;
 				})
 				.uniqueOnly()
-				.read();
+				.read(fileManager);
 		Util.printTable(table);
 	}
 

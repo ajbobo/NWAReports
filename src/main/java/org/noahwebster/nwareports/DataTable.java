@@ -13,9 +13,14 @@ public class DataTable {
 	private List<String> errors;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
-	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly) {
+	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly, FileManager fileManager) {
 		try {
-			Reader fileReader = FileManager.getFileReader(filePath);
+			if (null == fileManager) {
+				addError("No FileManager defined - Are you logged into Dropbox?");
+				return;
+			}
+
+			Reader fileReader = fileManager.getFileReader(filePath);
 			CSVReader reader = new CSVReader(fileReader, ',', '"', startRow);
 
 			// Read the headers of the raw data
@@ -192,8 +197,8 @@ public class DataTable {
 			return this;
 		}
 
-		public DataTable read() {
-			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly);
+		public DataTable read(FileManager fileManager) {
+			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly, fileManager);
 		}
 	}
 

@@ -10,12 +10,13 @@ public class TestDataTableJoiner {
 
 	@BeforeTest
 	public void beforeTest() {
+		FileManager fileManager = new FileManager();
 		table1 = new DataTable.Builder()
 				.withFilePath("testTable1.csv")
-				.read();
+				.read(fileManager);
 		table2 = new DataTable.Builder()
 				.withFilePath("testTable2.csv")
-				.read();
+				.read(fileManager);
 	}
 
 	@Test

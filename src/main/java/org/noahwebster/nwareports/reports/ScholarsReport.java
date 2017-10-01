@@ -36,6 +36,6 @@ public class ScholarsReport extends Report {
 					return res;
 				})
 				.uniqueOnly()
-				.read();
+				.read(fileManager);
 	}
 }

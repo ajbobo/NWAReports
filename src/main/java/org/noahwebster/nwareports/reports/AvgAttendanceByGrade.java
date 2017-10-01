@@ -44,7 +44,7 @@ public class AvgAttendanceByGrade extends Report {
 				.withFilter(new DataTable.Filter("Date", DataTable.FilterType.NOT_EQUALS, ""))
 				.withColumnProcessor("Period0", typePivot)
 				.withColumnProcessor("Period2", typePivot)
-				.read();
+				.read(fileManager);
 
 		DataTableReducer reducer1 = new DataTableReducer.Builder()
 				.withKeyColumns("StudentID", "Grade")

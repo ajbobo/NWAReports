@@ -15,15 +15,14 @@ import java.net.URL;
 
 public class FileManager {
 	private static final String LOCAL_PATH = "C:\\NWAReports\\";
-	private static String dbAccessToken;
+	private String dbAccessToken;
 
-	public static Reader getFileReader(String filePath) throws FileNotFoundException {
-		FileManager manager = new FileManager();
+	public Reader getFileReader(String filePath) throws FileNotFoundException {
 		Reader res = null;
 		if (null != dbAccessToken)
-			res = manager.getDropboxFile(filePath);
+			res = getDropboxFile(filePath);
 		if (res == null)
-			res = manager.getLocalFile(filePath);
+			res = getLocalFile(filePath);
 		return res;
 	}
 
@@ -59,12 +58,14 @@ public class FileManager {
 		}
 	}
 
-	public static void setDbAccessToken(String dbAccessToken) {
-		FileManager.dbAccessToken = dbAccessToken;
+	public void setDbAccessToken(String dbAccessToken) {
+		this.dbAccessToken = dbAccessToken;
 	}
 
-	public static boolean hasDbAccessToken() {
+	public boolean hasDbAccessToken() {
 //		System.out.println("AccessToken: " + (dbAccessToken != null ? dbAccessToken : "<<null>>"));
-		return FileManager.dbAccessToken != null;
+		return this.dbAccessToken != null;
 	}
+
+
 }

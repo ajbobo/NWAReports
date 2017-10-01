@@ -9,9 +9,10 @@ public class TestDataTableReducer {
 
 	@BeforeTest
 	public void beforeTest() {
+		FileManager fileManager = new FileManager();
 		testData = new DataTable.Builder()
 				.withFilePath("testTable1.csv")
-				.read();
+				.read(fileManager);
 	}
 
 	@Test

@@ -38,13 +38,13 @@ public class ScholarsByResource extends Report {
 					return res;
 				})
 				.uniqueOnly()
-				.read();
+				.read(fileManager);
 
 		DataTable resources = new DataTable.Builder()
 				.withFilePath("SpEd_16.csv")
 				.withColumns("ResourceType", "ident as Id")
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))
-				.read();
+				.read(fileManager);
 
 		DataTableJoiner joiner = new DataTableJoiner.Builder()
 				.joinColumns("Id")
