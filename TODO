@@ -5,6 +5,7 @@ Attendance vs. Demographics
 
 -- High Priority --
 Add a graphical way to show that there's a valid access token
+Need better handling for Canceling the Oauth window (right now it doesn't close)
 Find a good way to set tests to use Dropbox vs. local
 Return number values as numbers in the final results, so that they can be sorted correctly
 Improved UI
