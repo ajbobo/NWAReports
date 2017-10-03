@@ -5,6 +5,7 @@ Absences - by special category (SWD, ELL, etc)
 Absences - in regards to missing assignments. 
 
 -- High Priority --
+NOTE: When demoing to the Board, all reports should aggregate students - NO NAMES/IDs SHOULD BE RETURNED
 Add a graphical way to show that there's a valid access token
 Find a good way to set tests to use Dropbox vs. local
 Return number values as numbers in the final results, so that they can be sorted correctly
