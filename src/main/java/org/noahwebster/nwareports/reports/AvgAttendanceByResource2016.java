@@ -7,10 +7,10 @@ import org.noahwebster.nwareports.types.StringRow;
 
 import java.util.LinkedHashMap;
 
-public class AvgAttendanceByResource extends Report {
+public class AvgAttendanceByResource2016 extends Report {
 	public static final String REPORT_NAME = "Average Attendance By Resource (2016)";
 
-	public AvgAttendanceByResource() {
+	public AvgAttendanceByResource2016() {
 		name = REPORT_NAME;
 		description = "Average attendance by resources - 2016";
 	}

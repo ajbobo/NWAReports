@@ -38,6 +38,8 @@ public class NWAReports_WebController {
 		String fullpath = new String(request.getRequestURL());
 		String endpoint = request.getRequestURI();
 		String callingdomain = fullpath.replace(endpoint, "");
+		if (!callingdomain.toLowerCase().contains("localhost") && callingdomain.toLowerCase().contains("http://"))
+			callingdomain = callingdomain.toLowerCase().replace("http://", "https://");
 		redirectUrl = callingdomain + REDIRECT_URI;
 	}
 

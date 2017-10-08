@@ -15,28 +15,28 @@ public class ReportTest {
 
 	@Test
 	public void testAttendanceReport() {
-		AttendanceReport report = new AttendanceReport();
+		Attendance2016 report = new Attendance2016();
 		DataTable table = report.executeReport();
 		Util.printTable(table);
 	}
 
 	@Test
 	public void testAvgAttendanceByGradeReport() {
-		AvgAttendanceByGrade report = new AvgAttendanceByGrade();
+		AvgAttendanceByGrade2016 report = new AvgAttendanceByGrade2016();
 		DataTable table = report.executeReport();
 		Util.printTable(table);
 	}
 
 	@Test
 	public void testScholarsByResourceReport() {
-		ScholarsByResource report = new ScholarsByResource();
+		ScholarsByResource2016 report = new ScholarsByResource2016();
 		DataTable table = report.executeReport();
 		Util.printTable(table);
 	}
 
 	@Test
 	public void testAvgAttendanceByResourceReport() {
-		AvgAttendanceByResource report = new AvgAttendanceByResource();
+		AvgAttendanceByResource2016 report = new AvgAttendanceByResource2016();
 		DataTable table = report.executeReport();
 		Util.printTable(table);
 	}

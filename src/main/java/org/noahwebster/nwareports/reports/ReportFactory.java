@@ -9,10 +9,10 @@ public class ReportFactory {
 	static {
 		reports = new LinkedHashMap<>();
 		reports.put(ScholarsReport.REPORT_NAME, ScholarsReport.class);
-		reports.put(AttendanceReport.REPORT_NAME, AttendanceReport.class);
-		reports.put(AvgAttendanceByGrade.REPORT_NAME, AvgAttendanceByGrade.class);
-		reports.put(ScholarsByResource.REPORT_NAME, ScholarsByResource.class);
-		reports.put(AvgAttendanceByResource.REPORT_NAME, AvgAttendanceByResource.class);
+		reports.put(Attendance2016.REPORT_NAME, Attendance2016.class);
+		reports.put(AvgAttendanceByGrade2016.REPORT_NAME, AvgAttendanceByGrade2016.class);
+		reports.put(ScholarsByResource2016.REPORT_NAME, ScholarsByResource2016.class);
+		reports.put(AvgAttendanceByResource2016.REPORT_NAME, AvgAttendanceByResource2016.class);
 	}
 
 	public static Report getReport(String reportName) {

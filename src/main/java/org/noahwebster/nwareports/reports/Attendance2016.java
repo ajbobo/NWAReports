@@ -1,18 +1,18 @@
 package org.noahwebster.nwareports.reports;
 
-import org.noahwebster.nwareports.data.DataTable;
 import org.noahwebster.nwareports.data.DataTableReducer;
 import org.noahwebster.nwareports.data.DataTableReducer.Operation;
 import org.noahwebster.nwareports.types.StringRow;
+import org.noahwebster.nwareports.data.DataTable;
 
 import java.util.LinkedHashMap;
 
-public class AvgAttendanceByGrade extends Report {
-	public static final String REPORT_NAME = "Attendance By Grade (2016)";
+public class Attendance2016 extends Report {
+	public static final String REPORT_NAME = "Attendance (2016)";
 
-	public AvgAttendanceByGrade() {
+	public Attendance2016() {
 		name = REPORT_NAME;
-		description = "Average Attendance By Grade - 2016";
+		description = "Attendance by Scholar - 2016";
 	}
 
 	private static LinkedHashMap<String, String> typeMap;
@@ -39,30 +39,20 @@ public class AvgAttendanceByGrade extends Report {
 		DataTable startingTable = new DataTable.Builder()
 				.withFilePath("AttendanceByDay_16.csv")
 				.withStartRow(3)
-				.withColumns("StudentID", "Grade", "Date", "Period0", "Period2")
+				.withColumns("StudentID", "StudentName", "Date", "Period0", "Period2")
 				.withFilter(new DataTable.Filter("Date", DataTable.FilterType.NOT_EQUALS, ""))
 				.withColumnProcessor("Period0", typePivot)
 				.withColumnProcessor("Period2", typePivot)
 				.read(fileManager);
 
-		DataTableReducer reducer1 = new DataTableReducer.Builder()
-				.withKeyColumns("StudentID", "Grade")
+		DataTableReducer reducer = new DataTableReducer.Builder()
+				.withKeyColumns("StudentID", "StudentName")
 				.withOperation("Late", Operation.SUM)
 				.withOperation("Excused", Operation.SUM)
 				.withOperation("Tardy", Operation.SUM)
 				.withOperation("Absent", Operation.SUM)
 				.build();
 
-		DataTable totalsByStudent = reducer1.reduce(startingTable);
-		
-		DataTableReducer reducer2 = new DataTableReducer.Builder()
-				.withKeyColumns("Grade")
-				.withOperation("Late", Operation.AVERAGE)
-				.withOperation("Excused", Operation.AVERAGE)
-				.withOperation("Tardy", Operation.AVERAGE)
-				.withOperation("Absent", Operation.AVERAGE)
-				.build();
-
-		return reducer2.reduce(totalsByStudent);
+		return reducer.reduce(startingTable);
 	}
 }
