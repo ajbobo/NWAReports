@@ -25,6 +25,7 @@ public class ReportTest {
 				{ AvgAttendanceByGrade2016.class },
 				{ Attendance2016.class },
 				{ AvgAttendanceByResource2016.class },
+				{ AvgAttendanceByResource2017.class },
 				{ ScholarsByResource2016.class },
 		};
 	}
