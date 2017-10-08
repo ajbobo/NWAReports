@@ -1,43 +1,31 @@
 package org.noahwebster.nwareports;
 
 import org.noahwebster.nwareports.data.DataTable;
+import org.noahwebster.nwareports.data.FileManager;
 import org.noahwebster.nwareports.reports.*;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class ReportTest {
 
-	@Test
-	public void testScholarsReport() {
-		ScholarsReport report = new ScholarsReport();
+	@Test(dataProvider = "provideReportClasses")
+	public void testReport(Class<Report> reportClass) throws IllegalAccessException, InstantiationException {
+		Report report = reportClass.newInstance();
+		System.out.println("Testing Report: " + report.getName());
+		report.setFileManager(new FileManager());
 		DataTable table = report.executeReport();
 		Util.printTable(table);
 	}
 
-	@Test
-	public void testAttendanceReport() {
-		Attendance2016 report = new Attendance2016();
-		DataTable table = report.executeReport();
-		Util.printTable(table);
-	}
-
-	@Test
-	public void testAvgAttendanceByGradeReport() {
-		AvgAttendanceByGrade2016 report = new AvgAttendanceByGrade2016();
-		DataTable table = report.executeReport();
-		Util.printTable(table);
-	}
-
-	@Test
-	public void testScholarsByResourceReport() {
-		ScholarsByResource2016 report = new ScholarsByResource2016();
-		DataTable table = report.executeReport();
-		Util.printTable(table);
-	}
-
-	@Test
-	public void testAvgAttendanceByResourceReport() {
-		AvgAttendanceByResource2016 report = new AvgAttendanceByResource2016();
-		DataTable table = report.executeReport();
-		Util.printTable(table);
+	@DataProvider
+	public static Object[][] provideReportClasses() {
+		return new Object[][] {
+				{ ScholarsReport.class },
+				{ AvgAttendanceByGrade2017.class },
+				{ AvgAttendanceByGrade2016.class },
+				{ Attendance2016.class },
+				{ AvgAttendanceByResource2016.class },
+				{ ScholarsByResource2016.class },
+		};
 	}
 }
