@@ -12,7 +12,7 @@ public class AvgAttendanceByGrade2017 extends Report {
 
 	public AvgAttendanceByGrade2017() {
 		name = REPORT_NAME;
-		description = "Average Attendance By Grade - 2017";
+		description = "Average Attendance By Grade";
 	}
 
 	private static LinkedHashMap<String, String> typeMap;

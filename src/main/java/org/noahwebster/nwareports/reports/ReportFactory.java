@@ -10,6 +10,7 @@ public class ReportFactory {
 		reports = new LinkedHashMap<>();
 		reports.put(AvgAttendanceByGrade2017.REPORT_NAME, AvgAttendanceByGrade2017.class);
 		reports.put(AvgAttendanceByResource2017.REPORT_NAME, AvgAttendanceByResource2017.class);
+		reports.put(ScholarAttendanceAssignments.REPORT_NAME, ScholarAttendanceAssignments.class);
 //		reports.put(ScholarsReport.REPORT_NAME, ScholarsReport.class);
 //		reports.put(Attendance2016.REPORT_NAME, Attendance2016.class);
 //		reports.put(AvgAttendanceByGrade2016.REPORT_NAME, AvgAttendanceByGrade2016.class);
