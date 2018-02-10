@@ -8,10 +8,10 @@ import org.noahwebster.nwareports.types.StringRow;
 
 import java.util.LinkedHashMap;
 
-public class ScholarAttendanceAssignments extends Report {
+public class ScholarAttendanceAssignments2017 extends Report {
 	public static final String REPORT_NAME = "Scholar Attendance and Assignments";
 
-	public ScholarAttendanceAssignments() {
+	public ScholarAttendanceAssignments2017() {
 		name = REPORT_NAME;
 		description = "Scholar Attendance and Assignment Status";
 	}
@@ -41,14 +41,14 @@ public class ScholarAttendanceAssignments extends Report {
 		DataTable attendanceTable = new DataTable.Builder()
 				.withFilePath("AttendanceByDay.csv")
 				.withStartRow(3)
-				.withColumns("StudentID as ID", "Date", "Period0", "Period2")
+				.withColumns("StudentName as Name", "StudentID as ID", "Date", "Period0", "Period2")
 				.withFilter(new DataTable.Filter("Date", DataTable.FilterType.NOT_EQUALS, ""))
 				.withColumnProcessor("Period0", typePivot)
 				.withColumnProcessor("Period2", typePivot)
 				.read(fileManager);
 
 		DataTableReducer reducer1 = new DataTableReducer.Builder()
-				.withKeyColumns("ID")
+				.withKeyColumns("ID", "Name")
 				.withOperation("Late", Operation.SUM)
 				.withOperation("Excused", Operation.SUM)
 				.withOperation("Tardy", Operation.SUM)
@@ -83,7 +83,7 @@ public class ScholarAttendanceAssignments extends Report {
 
 		DataTableJoiner joiner1 = new DataTableJoiner.Builder()
 				.joinColumns("ID")
-				.reportColumns("Assignments", "Missing", "Late", "Excused", "Tardy", "Absent")
+				.reportColumns("Name", "Assignments", "Missing", "Late", "Excused", "Tardy", "Absent")
 				.build();
 
 		return joiner1.joinTables(totalsByStudent, assignmentsByStudent);

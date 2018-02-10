@@ -6,10 +6,10 @@ import org.noahwebster.nwareports.types.StringRow;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ScholarsReport extends Report {
+public class ScholarsReport2017 extends Report {
 	public static final String REPORT_NAME = "Scholars";
 
-	public ScholarsReport() {
+	public ScholarsReport2017() {
 		name = REPORT_NAME;
 		description = "List of Scholars";
 	}
