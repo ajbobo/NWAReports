@@ -86,6 +86,8 @@ public class ScholarAttendanceAssignments2017 extends Report {
 				.reportColumns("Name", "Assignments", "Missing", "Late", "Excused", "Tardy", "Absent")
 				.build();
 
-		return joiner1.joinTables(totalsByStudent, assignmentsByStudent);
+		DataTable joined = joiner1.joinTables(totalsByStudent, assignmentsByStudent);
+
+		return joined.clearPii(piiEnabled, "Name");
 	}
 }

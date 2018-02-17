@@ -50,6 +50,8 @@ public class ScholarsByResource2016 extends Report {
 				.reportColumns("Id", "FirstName", "LastName", "ResourceType")
 				.build();
 
-		return joiner.joinTables(scholars, resources);
+		DataTable joined = joiner.joinTables(scholars, resources);
+
+		return joined.clearPii(piiEnabled, "Id", "FirstName", "LastName");
 	}
 }

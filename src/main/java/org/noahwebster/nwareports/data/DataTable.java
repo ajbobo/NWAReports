@@ -79,9 +79,9 @@ public class DataTable {
 		}
 	}
 
-	public void clearPii(boolean enablePii, String... piiColumns) {
+	public DataTable clearPii(boolean enablePii, String... piiColumns) {
 		if (!enablePii)
-			return;
+			return this;
 
 		// Replace Pii columns
 		for (StringRow row : data) {
@@ -90,6 +90,8 @@ public class DataTable {
 					row.put(column, "(...)");
 			}
 		}
+
+		return this;
 	}
 
 	private void addToRow(String value, String curColumn, StringRow dataLine) {

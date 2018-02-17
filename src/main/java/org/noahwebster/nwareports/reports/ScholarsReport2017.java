@@ -14,7 +14,6 @@ public class ScholarsReport2017 extends Report {
 		description = "List of Scholars";
 	}
 
-
 	@Override
 	public DataTable executeReport() {
 		return new DataTable.Builder()
@@ -35,6 +34,7 @@ public class ScholarsReport2017 extends Report {
 					return res;
 				})
 				.uniqueOnly()
-				.read(fileManager);
+				.read(fileManager)
+				.clearPii(piiEnabled, "FirstName", "LastName", "StudentID");
 	}
 }

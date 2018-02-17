@@ -53,6 +53,7 @@ public class Attendance2016 extends Report {
 				.withOperation("Absent", Operation.SUM)
 				.build();
 
-		return reducer.reduce(startingTable);
+		DataTable reduced = reducer.reduce(startingTable);
+		return reduced.clearPii(piiEnabled, "StudentID", "StudentName");
 	}
 }
