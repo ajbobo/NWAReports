@@ -52,6 +52,6 @@ public class ScholarsByResource2016 extends Report {
 
 		DataTable joined = joiner.joinTables(scholars, resources);
 
-		return joined.clearPii(piiEnabled, "Id", "FirstName", "LastName");
+		return joined.hidePii(piiHidden, "Id", "FirstName", "LastName");
 	}
 }

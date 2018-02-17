@@ -143,7 +143,7 @@ public class TestDataTable {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")
 				.read(fileManager);
-		table.clearPii(true, "StudentName");
+		table.hidePii(true, "StudentName");
 		Util.printTable(table);
 	}
 
@@ -154,7 +154,7 @@ public class TestDataTable {
 				.withColumns("StudentName as Name", "Textbox20 as Grade")
 				.uniqueOnly()
 				.read(fileManager);
-		table.clearPii(true, "Name");
+		table.hidePii(true, "Name");
 		Util.printTable(table);
 	}
 
@@ -165,7 +165,7 @@ public class TestDataTable {
 				.withColumns("StudentName as Name", "Textbox20 as Grade")
 				.uniqueOnly()
 				.read(fileManager);
-		table.clearPii(false, "Name");
+		table.hidePii(false, "Name");
 		Util.printTable(table);
 	}
 
@@ -187,7 +187,7 @@ public class TestDataTable {
 				})
 				.uniqueOnly()
 				.read(fileManager);
-		table.clearPii(true, "StudentName");
+		table.hidePii(true, "StudentName");
 		Util.printTable(table);
 	}
 }

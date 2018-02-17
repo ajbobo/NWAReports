@@ -88,6 +88,6 @@ public class ScholarAttendanceAssignments2017 extends Report {
 
 		DataTable joined = joiner1.joinTables(totalsByStudent, assignmentsByStudent);
 
-		return joined.clearPii(piiEnabled, "Name");
+		return joined.hidePii(piiHidden, "Name");
 	}
 }

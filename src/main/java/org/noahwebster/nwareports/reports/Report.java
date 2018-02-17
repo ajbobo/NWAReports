@@ -8,7 +8,7 @@ public abstract class Report {
 	protected String name;
 	protected String description;
 	protected FileManager fileManager;
-	protected boolean piiEnabled;
+	protected boolean piiHidden;
 
 	public String getName() {
 		return name;
@@ -22,7 +22,7 @@ public abstract class Report {
 		this.fileManager = fileManager;
 	}
 
-	public void enablePii(boolean enable) { this.piiEnabled = enable; }
+	public void hidePii(boolean enable) { this.piiHidden = enable; }
 
 	public abstract DataTable executeReport();
 }

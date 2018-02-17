@@ -59,7 +59,7 @@ public class NWAReports_WebController {
 	                               HttpSession httpSession) {
 		Report report = ReportFactory.getReport(reportName);
 		if (report != null) {
-			report.enablePii(Boolean.parseBoolean(hidepii));
+			report.hidePii(Boolean.parseBoolean(hidepii));
 			Object tokenObj = httpSession.getAttribute(TOKEN_SESSION_KEY);
 			FileManager fileManager = new FileManager();
 			fileManager.setDbAccessToken(tokenObj != null ? tokenObj.toString() : null);

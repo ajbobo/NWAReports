@@ -20,7 +20,7 @@ public class ReportTest {
 	@Test(dataProvider = "provideReportClasses")
 	public void testReportWithPii(Class<Report> reportClass) throws IllegalAccessException, InstantiationException {
 		Report report = reportClass.newInstance();
-		report.enablePii(true);
+		report.hidePii(true);
 		System.out.println("Testing Report: " + report.getName());
 		report.setFileManager(new FileManager());
 		DataTable table = report.executeReport();

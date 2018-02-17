@@ -79,8 +79,8 @@ public class DataTable {
 		}
 	}
 
-	public DataTable clearPii(boolean enablePii, String... piiColumns) {
-		if (!enablePii)
+	public DataTable hidePii(boolean hidePii, String... piiColumns) {
+		if (!hidePii)
 			return this;
 
 		// Replace Pii columns

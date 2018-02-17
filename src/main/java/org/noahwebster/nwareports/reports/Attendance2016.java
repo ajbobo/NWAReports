@@ -54,6 +54,6 @@ public class Attendance2016 extends Report {
 				.build();
 
 		DataTable reduced = reducer.reduce(startingTable);
-		return reduced.clearPii(piiEnabled, "StudentID", "StudentName");
+		return reduced.hidePii(piiHidden, "StudentID", "StudentName");
 	}
 }

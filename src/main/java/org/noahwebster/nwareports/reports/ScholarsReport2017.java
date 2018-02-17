@@ -35,6 +35,6 @@ public class ScholarsReport2017 extends Report {
 				})
 				.uniqueOnly()
 				.read(fileManager)
-				.clearPii(piiEnabled, "FirstName", "LastName", "StudentID");
+				.hidePii(piiHidden, "FirstName", "LastName", "StudentID");
 	}
 }
