@@ -8,6 +8,7 @@ import org.noahwebster.nwareports.reports.Report;
 import org.noahwebster.nwareports.reports.ReportFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -53,9 +54,12 @@ public class NWAReports_WebController {
 	}
 
 	@RequestMapping("/reports/{reportName}")
-	public DataTable executeReport(@PathVariable("reportName") String reportName, HttpSession httpSession) {
+	public DataTable executeReport(@PathVariable("reportName") String reportName,
+	                               @RequestParam String hidepii,
+	                               HttpSession httpSession) {
 		Report report = ReportFactory.getReport(reportName);
 		if (report != null) {
+			report.enablePii(Boolean.parseBoolean(hidepii));
 			Object tokenObj = httpSession.getAttribute(TOKEN_SESSION_KEY);
 			FileManager fileManager = new FileManager();
 			fileManager.setDbAccessToken(tokenObj != null ? tokenObj.toString() : null);

@@ -6,7 +6,7 @@ Absences - in regards to missing assignments. - DONE
 Scholar summary - include attendance, assignments, demographic(?)
 
 -- High Priority --
-Add "Hide PII" button
+Add "Hide PII" button - DONE
 Break down Assignment report by Subject
 NOTE: When demoing to the Board, all reports should aggregate students - NO NAMES/IDs SHOULD BE RETURNED
 Add a graphical way to show that there's a valid access token

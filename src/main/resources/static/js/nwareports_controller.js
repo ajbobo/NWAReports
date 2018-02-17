@@ -3,6 +3,7 @@ angular.module('NWAReports', [])
         $scope.stuff = "Hello there";
         $scope.selectedReport = null;
         $scope.data = null;
+        $scope.hidePii = false;
 
         var win;
         var checkInterval;
@@ -17,7 +18,7 @@ angular.module('NWAReports', [])
                 alert("Select a report");
             }
             else {
-                var url = "/reports/" + $scope.selectedReport.name;
+                var url = "/reports/" + $scope.selectedReport.name + "?hidepii=" + $scope.hidePii;
                 $http.get(url)
                     .then(function (response) {
                         $scope.data = response.data;
