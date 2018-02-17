@@ -13,7 +13,7 @@ public class DataTable {
 	private List<String> errors;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
-	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly, String[] piiColumns, FileManager fileManager) {
+	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly, FileManager fileManager) {
 		try {
 			if (null == fileManager) {
 				addError("No FileManager defined - Are you logged into Dropbox?");
@@ -66,12 +66,6 @@ public class DataTable {
 				}
 			}
 
-			// Replace Pii columns
-			for (StringRow row : data) {
-				for (String column : piiColumns)
-					row.put(column, "(...)");
-			}
-
 			this.columnNames = new String[data.get(0).columnNames().size()];
 			data.get(0).columnNames().toArray(this.columnNames);
 		}
@@ -82,6 +76,19 @@ public class DataTable {
 		catch (Exception ex) {
 			this.data = null;
 			addError("An unknown error occurred: " + ex.getMessage());
+		}
+	}
+
+	public void clearPii(boolean enablePii, String... piiColumns) {
+		if (!enablePii)
+			return;
+
+		// Replace Pii columns
+		for (StringRow row : data) {
+			for (String column : piiColumns) {
+				if (row.hasColumn(column))
+					row.put(column, "(...)");
+			}
 		}
 	}
 
@@ -168,7 +175,6 @@ public class DataTable {
 		private List<Filter> filters;
 		private Map<String, ColumnProcessor> processors;
 		private boolean uniqueOnly;
-		private String[] piiColumns;
 
 		public Builder() {
 			this.filePath = null;
@@ -210,15 +216,7 @@ public class DataTable {
 		}
 
 		public DataTable read(FileManager fileManager) {
-			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly, piiColumns, fileManager);
-		}
-
-		public Builder enablePii(boolean piiEnabled, String... piiColumns) {
-			if (piiEnabled)
-				this.piiColumns = piiColumns;
-			else
-				this.piiColumns = new String[] {}; // The DataTable wants an array, even if it's empty
-			return this;
+			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly, fileManager);
 		}
 	}
 

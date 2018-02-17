@@ -133,7 +133,6 @@ public class TestDataTable {
 						res.put("Grade", oldValue);
 					return res;
 				})
-				.enablePii(false, "StudentName")
 				.uniqueOnly()
 				.read(fileManager);
 		Util.printTable(table);
@@ -143,8 +142,8 @@ public class TestDataTable {
 	public void testDataTableWithPii() {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")
-				.enablePii(true, "StudentName")
 				.read(fileManager);
+		table.clearPii(true, "StudentName");
 		Util.printTable(table);
 	}
 
@@ -153,9 +152,9 @@ public class TestDataTable {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")
 				.withColumns("StudentName as Name", "Textbox20 as Grade")
-				.enablePii(true, "Name")
 				.uniqueOnly()
 				.read(fileManager);
+		table.clearPii(true, "Name");
 		Util.printTable(table);
 	}
 
@@ -164,9 +163,9 @@ public class TestDataTable {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")
 				.withColumns("StudentName as Name", "Textbox20 as Grade")
-				.enablePii(false, "Name")
 				.uniqueOnly()
 				.read(fileManager);
+		table.clearPii(false, "Name");
 		Util.printTable(table);
 	}
 
@@ -186,9 +185,9 @@ public class TestDataTable {
 						res.put("Grade", oldValue);
 					return res;
 				})
-				.enablePii(true, "StudentName")
 				.uniqueOnly()
 				.read(fileManager);
+		table.clearPii(true, "StudentName");
 		Util.printTable(table);
 	}
 }
