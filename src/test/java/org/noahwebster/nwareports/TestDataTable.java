@@ -133,10 +133,62 @@ public class TestDataTable {
 						res.put("Grade", oldValue);
 					return res;
 				})
+				.enablePii(false, "StudentName")
 				.uniqueOnly()
 				.read(fileManager);
 		Util.printTable(table);
 	}
 
-	
+	@Test
+	public void testDataTableWithPii() {
+		DataTable table = new DataTable.Builder()
+				.withFilePath("StudentAssessment_16.csv")
+				.enablePii(true, "StudentName")
+				.read(fileManager);
+		Util.printTable(table);
+	}
+
+	@Test
+	public void testDataTableWithPii_ColumnAlias() {
+		DataTable table = new DataTable.Builder()
+				.withFilePath("StudentAssessment_16.csv")
+				.withColumns("StudentName as Name", "Textbox20 as Grade")
+				.enablePii(true, "Name")
+				.uniqueOnly()
+				.read(fileManager);
+		Util.printTable(table);
+	}
+
+	@Test
+	public void testDataTableWithDisabledPii_ColumnAlias() {
+		DataTable table = new DataTable.Builder()
+				.withFilePath("StudentAssessment_16.csv")
+				.withColumns("StudentName as Name", "Textbox20 as Grade")
+				.enablePii(false, "Name")
+				.uniqueOnly()
+				.read(fileManager);
+		Util.printTable(table);
+	}
+
+	@Test
+	public void testFilteredDataAndColumns_WithPii() {
+		DataTable table = new DataTable.Builder()
+				.withFilePath("StudentAssessment_16.csv")
+				.withFilter(new DataTable.Filter("Textbox20", DataTable.FilterType.EQUALS, "Grade:  2"))
+				.withColumns("StudentName", "Textbox20")
+				.withColumnProcessor("Textbox20", (column, oldValue) -> {
+					StringRow res = new StringRow();
+					Pattern pattern = Pattern.compile("Grade:\\s+(?<Grade>\\d+)");
+					Matcher matcher = pattern.matcher(oldValue);
+					if (matcher.find())
+						res.put("Grade", matcher.group("Grade"));
+					else
+						res.put("Grade", oldValue);
+					return res;
+				})
+				.enablePii(true, "StudentName")
+				.uniqueOnly()
+				.read(fileManager);
+		Util.printTable(table);
+	}
 }

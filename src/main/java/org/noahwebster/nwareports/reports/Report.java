@@ -8,6 +8,7 @@ public abstract class Report {
 	protected String name;
 	protected String description;
 	protected FileManager fileManager;
+	protected boolean piiEnabled;
 
 	public String getName() {
 		return name;
@@ -20,6 +21,8 @@ public abstract class Report {
 	public void setFileManager(FileManager fileManager) {
 		this.fileManager = fileManager;
 	}
+
+	public void enablePii(boolean enable) { this.piiEnabled = enable; }
 
 	public abstract DataTable executeReport();
 }

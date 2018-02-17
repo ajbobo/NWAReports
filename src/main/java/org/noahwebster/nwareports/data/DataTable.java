@@ -13,7 +13,7 @@ public class DataTable {
 	private List<String> errors;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
-	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly, FileManager fileManager) {
+	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly, String[] piiColumns, FileManager fileManager) {
 		try {
 			if (null == fileManager) {
 				addError("No FileManager defined - Are you logged into Dropbox?");
@@ -52,18 +52,24 @@ public class DataTable {
 						String curColumn = headers[x];
 						if (requestedColumns.contains(curColumn)) {
 							if (processors == null || !processors.containsKey(curColumn)) {
-								dataLine.put(curColumn, nextLine[x]);
+								addToRow(nextLine[x], curColumn, dataLine);
 							}
 							else {
 								StringRow newCells = processors.get(curColumn).processCell(curColumn, nextLine[x]);
 								for (String col : newCells.columnNames())
-									dataLine.put(col, newCells.get(col));
+									addToRow(newCells.get(col), col, dataLine);
 							}
 						}
 					}
 					if (!uniqueOnly || isUnique(dataLine))
 						data.add(dataLine);
 				}
+			}
+
+			// Replace Pii columns
+			for (StringRow row : data) {
+				for (String column : piiColumns)
+					row.put(column, "(...)");
 			}
 
 			this.columnNames = new String[data.get(0).columnNames().size()];
@@ -77,6 +83,10 @@ public class DataTable {
 			this.data = null;
 			addError("An unknown error occurred: " + ex.getMessage());
 		}
+	}
+
+	private void addToRow(String value, String curColumn, StringRow dataLine) {
+		dataLine.put(curColumn, value);
 	}
 
 	public DataTable() {
@@ -119,7 +129,7 @@ public class DataTable {
 				columnsToAdd.add(names[0].trim());
 				processors.put(names[0].trim(), (column1, oldValue) -> {
 					StringRow res = new StringRow();
-					res.put(names[1].trim(), oldValue);
+					addToRow(oldValue, names[1].trim(), res);
 					return res;
 				});
 			}
@@ -140,6 +150,7 @@ public class DataTable {
 		return unique;
 	}
 
+	@SuppressWarnings("unused")
 	public String[] getColumnNames() {
 		return columnNames;
 	}
@@ -157,6 +168,7 @@ public class DataTable {
 		private List<Filter> filters;
 		private Map<String, ColumnProcessor> processors;
 		private boolean uniqueOnly;
+		private String[] piiColumns;
 
 		public Builder() {
 			this.filePath = null;
@@ -198,7 +210,15 @@ public class DataTable {
 		}
 
 		public DataTable read(FileManager fileManager) {
-			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly, fileManager);
+			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly, piiColumns, fileManager);
+		}
+
+		public Builder enablePii(boolean piiEnabled, String... piiColumns) {
+			if (piiEnabled)
+				this.piiColumns = piiColumns;
+			else
+				this.piiColumns = new String[] {}; // The DataTable wants an array, even if it's empty
+			return this;
 		}
 	}
 
