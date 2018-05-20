@@ -1,6 +1,6 @@
 package org.noahwebster.nwareports.data;
 
-import org.noahwebster.nwareports.types.StringRow;
+import org.noahwebster.nwareports.datatypes.StringRow;
 
 import java.util.ArrayList;
 

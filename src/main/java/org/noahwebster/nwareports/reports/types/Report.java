@@ -1,4 +1,4 @@
-package org.noahwebster.nwareports.reports;
+package org.noahwebster.nwareports.reports.types;
 
 import org.noahwebster.nwareports.data.DataTable;
 import org.noahwebster.nwareports.data.FileManager;

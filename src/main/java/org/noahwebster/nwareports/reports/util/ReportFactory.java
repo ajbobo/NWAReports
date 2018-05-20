@@ -1,4 +1,7 @@
-package org.noahwebster.nwareports.reports;
+package org.noahwebster.nwareports.reports.util;
+
+import org.noahwebster.nwareports.reports.*;
+import org.noahwebster.nwareports.reports.types.Report;
 
 import java.util.LinkedHashMap;
 
@@ -8,6 +11,7 @@ public class ReportFactory {
 
 	static {
 		reports = new LinkedHashMap<>();
+		reports.put(Attendance2017.REPORT_NAME, Attendance2017.class);
 		reports.put(AvgAttendanceByGrade2017.REPORT_NAME, AvgAttendanceByGrade2017.class);
 		reports.put(AvgAttendanceByResource2017.REPORT_NAME, AvgAttendanceByResource2017.class);
 		reports.put(ScholarAttendanceAssignments2017.REPORT_NAME, ScholarAttendanceAssignments2017.class);

@@ -28,7 +28,7 @@ public class FileManager {
 
 	private Reader getDropboxFile(String filePath) {
 		try {
-			System.out.println("Reading from Dropbox");
+			System.out.println("Reading from Dropbox - " + filePath);
 			DbxRequestConfig config = new DbxRequestConfig("NWAReports");
 			DbxClientV2 client = new DbxClientV2(config, dbAccessToken);
 
@@ -45,7 +45,7 @@ public class FileManager {
 	}
 
 	private Reader getLocalFile(String filePath) throws FileNotFoundException {
-		System.out.println("Reading local file");
+		System.out.println("Reading local file - " + filePath);
 		try {
 			return new FileReader(LOCAL_PATH + filePath);
 		}

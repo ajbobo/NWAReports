@@ -1,7 +1,7 @@
 package org.noahwebster.nwareports.data;
 
-import org.noahwebster.nwareports.types.GenericRow;
-import org.noahwebster.nwareports.types.StringRow;
+import org.noahwebster.nwareports.datatypes.GenericRow;
+import org.noahwebster.nwareports.datatypes.StringRow;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

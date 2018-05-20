@@ -3,6 +3,7 @@ package org.noahwebster.nwareports;
 import org.noahwebster.nwareports.data.DataTable;
 import org.noahwebster.nwareports.data.FileManager;
 import org.noahwebster.nwareports.reports.*;
+import org.noahwebster.nwareports.reports.types.Report;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -30,6 +31,7 @@ public class ReportTest {
 	@DataProvider
 	public static Object[][] provideReportClasses() {
 		return new Object[][] {
+				{ Attendance2017.class },
 				{ AvgAttendanceByGrade2017.class },
 				{ AvgAttendanceByResource2017.class },
 				{ ScholarAttendanceAssignments2017.class },
