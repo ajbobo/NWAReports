@@ -13,7 +13,7 @@ public class DataTable {
 	private List<String> errors;
 
 	private DataTable(String filePath, int startRow, String[] columnNames, List<Filter> filters,
-	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly, FileManager fileManager) {
+	                  Map<String, ColumnProcessor> processors, boolean uniqueOnly, boolean stopAtBlank, FileManager fileManager) {
 		try {
 			if (null == fileManager) {
 				addError("No FileManager defined - Are you logged into Dropbox?");
@@ -28,13 +28,17 @@ public class DataTable {
 
 			// For each row in the raw data, determine which values should be in the results
 			data = new ArrayList<>();
+			boolean finished = false;
 			String[] nextLine;
-			while ((nextLine = reader.readNext()) != null) {
+			while (!finished && (nextLine = reader.readNext()) != null) {
 				// Does this row match ALL of the assigned filters?
 				// TODO: Can I do this with Java Stream API instead?
 				boolean isValidRow = true;
-				if (nextLine.length == 1 && nextLine[0].equalsIgnoreCase("")) // Skip empty rows
+				if (nextLine.length == 1 && nextLine[0].equalsIgnoreCase("")) { // Handle empty rows
+					if (stopAtBlank)
+						finished = true;
 					isValidRow = false;
+				}
 				if (filters != null) {
 					Iterator iterator = filters.iterator();
 					while (isValidRow && iterator.hasNext()) {
@@ -177,6 +181,7 @@ public class DataTable {
 		private List<Filter> filters;
 		private Map<String, ColumnProcessor> processors;
 		private boolean uniqueOnly;
+		private boolean stopAtBlank;
 
 		public Builder() {
 			this.filePath = null;
@@ -185,6 +190,7 @@ public class DataTable {
 			this.filters = new ArrayList<>();
 			this.processors = new LinkedHashMap<>();
 			this.uniqueOnly = false;
+			this.stopAtBlank = false;
 		}
 
 		public Builder withFilePath(String filePath) {
@@ -217,8 +223,13 @@ public class DataTable {
 			return this;
 		}
 
+		public Builder stopAtBlank() {
+			this.stopAtBlank = true;
+			return this;
+		}
+
 		public DataTable read(FileManager fileManager) {
-			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly, fileManager);
+			return new DataTable(filePath, startRow, columnNames, filters, processors, uniqueOnly, stopAtBlank, fileManager);
 		}
 	}
 

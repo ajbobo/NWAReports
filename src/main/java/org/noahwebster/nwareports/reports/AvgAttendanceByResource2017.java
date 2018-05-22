@@ -7,8 +7,8 @@ public class AvgAttendanceByResource2017 extends AvgAttendanceByResource {
 
 	public AvgAttendanceByResource2017() {
 		name = REPORT_NAME;
-		description = "Average attendance by resources";
+		description = "Average attendance by Special Education Resources";
 		attendanceFile = "AttendanceByDay.csv";
-		spedFile = "SpEd_16.csv";
+		spedFile = "SpecialProgramDetailByProgram.csv";
 	}
 }

@@ -35,6 +35,16 @@ public class TestDataTable {
 	}
 
 	@Test
+	public void testSkipRowsExtraTables() {
+		DataTable table = new DataTable.Builder()
+				.withFilePath("SpecialProgramDetailByProgram.csv")
+				.withStartRow(3)
+				.stopAtBlank()
+				.read(fileManager);
+		Util.printTable(table);
+	}
+
+	@Test
 	public void testLimitedColumns() {
 		DataTable table = new DataTable.Builder()
 				.withFilePath("StudentAssessment_16.csv")

@@ -36,10 +36,10 @@ public class ReportTest {
 				{ AvgAttendanceByResource2017.class },
 				{ ScholarAttendanceAssignments2017.class },
 				{ ScholarsReport2017.class },
-				{ AvgAttendanceByGrade2016.class },
-				{ Attendance2016.class },
-				{ AvgAttendanceByResource2016.class },
-				{ ScholarsByResource2016.class },
+//				{ AvgAttendanceByGrade2016.class },
+//				{ Attendance2016.class },
+//				{ AvgAttendanceByResource2016.class },
+//				{ ScholarsByResource2016.class },
 		};
 	}
 }

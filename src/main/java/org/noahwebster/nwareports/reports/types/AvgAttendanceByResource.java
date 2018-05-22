@@ -44,7 +44,9 @@ public abstract class AvgAttendanceByResource extends Report {
 		DataTable resources = new DataTable.Builder()
 				.withFilePath(spedFile)
 				.withColumns("ResourceType", "ident as Id")
+				.withStartRow(3)
 				.withFilter(new DataTable.Filter("EndDate", DataTable.FilterType.EQUALS, ""))
+				.stopAtBlank()
 				.read(fileManager);
 
 		DataTableJoiner joiner = new DataTableJoiner.Builder()
