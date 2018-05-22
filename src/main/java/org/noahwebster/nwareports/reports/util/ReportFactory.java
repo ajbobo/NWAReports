@@ -16,6 +16,7 @@ public class ReportFactory {
 		reports.put(AvgAttendanceByResource2017.REPORT_NAME, AvgAttendanceByResource2017.class);
 		reports.put(ScholarAttendanceAssignments2017.REPORT_NAME, ScholarAttendanceAssignments2017.class);
 		reports.put(ScholarsReport2017.REPORT_NAME, ScholarsReport2017.class);
+		reports.put(ScholarAssignments2017.REPORT_NAME, ScholarAssignments2017.class);
 
 		// Removing the 2016 reports
 //		reports.put(Attendance2016.REPORT_NAME, Attendance2016.class);

@@ -31,11 +31,12 @@ public class ReportTest {
 	@DataProvider
 	public static Object[][] provideReportClasses() {
 		return new Object[][] {
-				{ Attendance2017.class },
-				{ AvgAttendanceByGrade2017.class },
-				{ AvgAttendanceByResource2017.class },
-				{ ScholarAttendanceAssignments2017.class },
-				{ ScholarsReport2017.class },
+//				{ Attendance2017.class },
+//				{ AvgAttendanceByGrade2017.class },
+//				{ AvgAttendanceByResource2017.class },
+//				{ ScholarAttendanceAssignments2017.class },
+//				{ ScholarsReport2017.class },
+				{ ScholarAssignments2017.class },
 //				{ AvgAttendanceByGrade2016.class },
 //				{ Attendance2016.class },
 //				{ AvgAttendanceByResource2016.class },
