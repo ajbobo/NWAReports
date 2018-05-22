@@ -22,8 +22,8 @@ public class NWAReports_WebController {
 
 	private static final String TOKEN_SESSION_KEY = "DbAccessToken";
 
-	private final static String APP_ID = "7kgahrejtycnnpx";
-	private final static String APP_SECRET = "di01xk7ljjh4pki";
+	private final static String APP_ID = "1dr3nj7lz7m0oag";
+	private final static String APP_SECRET = "fbxkjilevpouol8";
 	private final static String REDIRECT_URI = "/dbredirect";
 
 	private static DbxWebAuth auth = null;
