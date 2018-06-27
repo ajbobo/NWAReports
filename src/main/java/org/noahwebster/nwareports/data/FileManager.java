@@ -15,7 +15,8 @@ import java.net.URL;
 
 public class FileManager {
 	private static final String LOCAL_PATH = "C:\\NWAReports\\";
-	private static final String FOLDER_ID = "id:V6swvdgbfbIAAAAAAAAqfQ";
+//	private static final String FOLDER_ID = "id:V6swvdgbfbIAAAAAAAAqfQ"; // This ID is for a single user
+	private static final String FOLDER_ID = "ns:3164444528"; // Namespace ID - the SharedFolderId for the folder
 	private String dbAccessToken;
 
 	public Reader getFileReader(String filePath) throws FileNotFoundException {
@@ -34,6 +35,7 @@ public class FileManager {
 			DbxClientV2 client = new DbxClientV2(config, dbAccessToken);
 
 			DbxUserFilesRequests files = client.files();
+//			ListFolderResult folder = files.listFolder("/School");
 			DbxDownloader<FileMetadata> download = files.download(FOLDER_ID + "/" + filePath);
 
 			System.out.println("Success");
