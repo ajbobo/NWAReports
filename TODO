@@ -1,11 +1,13 @@
 -- High Priority --
+Encrypt data that is returned. Decrypt it in the UI.
+   How can I keep the public key out of the Javascript code?
 Make a list of reports that are implemented
 	Which are for 2016 vs 2017?
 	What do we need for 2017 data?
 AvgAttendanceByResource2017 needs to use 2017 SpEd data (see File Weirdness)
-Break down Assignment report by Subject
 Return number values as numbers in the final results, so that they can be sorted correctly
 Create tests for Reports using handmade data?
+Break down Assignment report by Subject - DONE
 NOTE: When demoing to the Board, all reports should aggregate students - NO NAMES/IDs SHOULD BE RETURNED - DONE
 Refactor reports into a set of abstract high-level report classes, with subclasses for each specific year - DONE
 	The abstract class has the behavior, the subclasses define the names and source files
@@ -27,6 +29,7 @@ Absences - in regards to missing assignments. - DONE
 Find a good way to set tests to use Dropbox vs. local
 Improved UI
 Add a graphical way to show that there's a valid access token
+Add a grpahical way to show that a report is in progress
 Add button to save result table as .csv
 Add UI option to hide columns from result table
   Some tables could have tons of columns, give user option to hide ones they aren't interested in
