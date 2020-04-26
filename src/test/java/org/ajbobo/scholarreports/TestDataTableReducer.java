@@ -1,8 +1,8 @@
-package org.noahwebster.nwareports;
+package org.ajbobo.scholarreports;
 
-import org.noahwebster.nwareports.data.DataTable;
-import org.noahwebster.nwareports.data.DataTableReducer;
-import org.noahwebster.nwareports.data.FileManager;
+import org.ajbobo.scholarreports.data.DataTable;
+import org.ajbobo.scholarreports.data.DataTableReducer;
+import org.ajbobo.scholarreports.data.FileManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;

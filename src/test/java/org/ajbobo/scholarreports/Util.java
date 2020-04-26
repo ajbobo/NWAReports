@@ -1,7 +1,7 @@
-package org.noahwebster.nwareports;
+package org.ajbobo.scholarreports;
 
-import org.noahwebster.nwareports.data.DataTable;
-import org.noahwebster.nwareports.datatypes.StringRow;
+import org.ajbobo.scholarreports.data.DataTable;
+import org.ajbobo.scholarreports.datatypes.StringRow;
 
 import java.io.FileReader;
 import java.util.*;

@@ -1,8 +1,8 @@
-package org.noahwebster.nwareports;
+package org.ajbobo.scholarreports;
 
-import org.noahwebster.nwareports.data.DataTable;
-import org.noahwebster.nwareports.data.FileManager;
-import org.noahwebster.nwareports.datatypes.StringRow;
+import org.ajbobo.scholarreports.data.DataTable;
+import org.ajbobo.scholarreports.data.FileManager;
+import org.ajbobo.scholarreports.datatypes.StringRow;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -20,18 +20,9 @@ public class TestDataTable {
 	@Test
 	public void testDataTable() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.read(fileManager);
 		Util.printTable(table);
-	}
-
-	@Test
-	public void testSkipRows() {
-		DataTable table = new DataTable.Builder()
-				.withFilePath("AttendanceByDay_16.csv")
-				.withStartRow(3)
-				.read(fileManager);
-		Util.printTable(table, 15);
 	}
 
 	@Test
@@ -47,7 +38,7 @@ public class TestDataTable {
 	@Test
 	public void testLimitedColumns() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withColumns("Textbox20", "StudentName")
 				.read(fileManager);
 		Util.printTable(table);
@@ -56,7 +47,7 @@ public class TestDataTable {
 	@Test
 	public void testLimitedUniqueColumns() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withColumns("Textbox20 as Grade", "StudentName")
 				.uniqueOnly()
 				.read(fileManager);
@@ -66,7 +57,7 @@ public class TestDataTable {
 	@Test
 	public void testLimitedUniqueProcessedColumns() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withColumns("Textbox20", "StudentName")
 				.withColumnProcessor("StudentName", (column, oldValue) -> {
 					StringRow res = new StringRow();
@@ -102,7 +93,7 @@ public class TestDataTable {
 	@Test
 	public void testLimitedAliasedColumns() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withColumns("Textbox20 as Grade", "  StudentName   as    Student Name    ")
 				.read(fileManager);
 		Util.printTable(table);
@@ -111,7 +102,7 @@ public class TestDataTable {
 	@Test
 	public void testFilteredData() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withFilter(new DataTable.Filter("Textbox20", DataTable.FilterType.EQUALS, "Grade:  2"))
 				.read(fileManager);
 		Util.printTable(table);
@@ -120,9 +111,9 @@ public class TestDataTable {
 	@Test
 	public void testFilteredData2() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withFilter(new DataTable.Filter("ScoreMethodTitle1", DataTable.FilterType.EQUALS, "Proficiency"))
-				.withFilter(new DataTable.Filter("Category", DataTable.FilterType.EQUALS, " 2016"))
+				.withFilter(new DataTable.Filter("Category", DataTable.FilterType.EQUALS, "2016"))
 				.read(fileManager);
 		Util.printTable(table);
 	}
@@ -130,7 +121,7 @@ public class TestDataTable {
 	@Test
 	public void testFilteredDataAndColumns() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withFilter(new DataTable.Filter("Textbox20", DataTable.FilterType.EQUALS, "Grade:  2"))
 				.withColumns("StudentName", "Textbox20")
 				.withColumnProcessor("Textbox20", (column, oldValue) -> {
@@ -151,7 +142,7 @@ public class TestDataTable {
 	@Test
 	public void testDataTableWithPii() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.read(fileManager);
 		table.hidePii(true, "StudentName");
 		Util.printTable(table);
@@ -160,7 +151,7 @@ public class TestDataTable {
 	@Test
 	public void testDataTableWithPii_ColumnAlias() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withColumns("StudentName as Name", "Textbox20 as Grade")
 				.uniqueOnly()
 				.read(fileManager);
@@ -171,7 +162,7 @@ public class TestDataTable {
 	@Test
 	public void testDataTableWithDisabledPii_ColumnAlias() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withColumns("StudentName as Name", "Textbox20 as Grade")
 				.uniqueOnly()
 				.read(fileManager);
@@ -182,7 +173,7 @@ public class TestDataTable {
 	@Test
 	public void testFilteredDataAndColumns_WithPii() {
 		DataTable table = new DataTable.Builder()
-				.withFilePath("StudentAssessment_16.csv")
+				.withFilePath("StudentAssessment.csv")
 				.withFilter(new DataTable.Filter("Textbox20", DataTable.FilterType.EQUALS, "Grade:  2"))
 				.withColumns("StudentName", "Textbox20")
 				.withColumnProcessor("Textbox20", (column, oldValue) -> {

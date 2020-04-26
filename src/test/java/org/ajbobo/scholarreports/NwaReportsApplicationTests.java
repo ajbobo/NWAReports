@@ -1,4 +1,4 @@
-package org.noahwebster.nwareports;
+package org.ajbobo.scholarreports;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
