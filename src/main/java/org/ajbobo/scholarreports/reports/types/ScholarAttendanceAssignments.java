@@ -1,10 +1,9 @@
-package org.noahwebster.nwareports.reports.types;
+package org.ajbobo.scholarreports.reports.types;
 
-import org.noahwebster.nwareports.data.DataTable;
-import org.noahwebster.nwareports.data.DataTableJoiner;
-import org.noahwebster.nwareports.data.DataTableReducer;
-import org.noahwebster.nwareports.data.DataTableReducer.Operation;
-import org.noahwebster.nwareports.datatypes.StringRow;
+import org.ajbobo.scholarreports.data.DataTable;
+import org.ajbobo.scholarreports.data.DataTableJoiner;
+import org.ajbobo.scholarreports.data.DataTableReducer;
+import org.ajbobo.scholarreports.datatypes.StringRow;
 
 import java.util.LinkedHashMap;
 
@@ -45,10 +44,10 @@ public abstract class ScholarAttendanceAssignments extends Report {
 
 		DataTableReducer reducer1 = new DataTableReducer.Builder()
 				.withKeyColumns("ID", "Name")
-				.withOperation("Late", Operation.SUM)
-				.withOperation("Excused", Operation.SUM)
-				.withOperation("Tardy", Operation.SUM)
-				.withOperation("Absent", Operation.SUM)
+				.withOperation("Late", DataTableReducer.Operation.SUM)
+				.withOperation("Excused", DataTableReducer.Operation.SUM)
+				.withOperation("Tardy", DataTableReducer.Operation.SUM)
+				.withOperation("Absent", DataTableReducer.Operation.SUM)
 				.build();
 
 		DataTable totalsByStudent = reducer1.reduce(attendanceTable);
@@ -71,8 +70,8 @@ public abstract class ScholarAttendanceAssignments extends Report {
 
 		DataTableReducer reducer2 = new DataTableReducer.Builder()
 				.withKeyColumns("ID")
-				.withOperation("Assignments", Operation.SUM)
-				.withOperation("Missing", Operation.SUM)
+				.withOperation("Assignments", DataTableReducer.Operation.SUM)
+				.withOperation("Missing", DataTableReducer.Operation.SUM)
 				.build();
 
 		DataTable assignmentsByStudent = reducer2.reduce(missingAssignmentsTable);

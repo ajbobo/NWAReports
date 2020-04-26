@@ -1,7 +1,7 @@
-package org.noahwebster.nwareports.reports.util;
+package org.ajbobo.scholarreports.reports.util;
 
-import org.noahwebster.nwareports.reports.*;
-import org.noahwebster.nwareports.reports.types.Report;
+import org.ajbobo.scholarreports.reports.*;
+import org.ajbobo.scholarreports.reports.types.Report;
 
 import java.util.LinkedHashMap;
 
@@ -17,12 +17,6 @@ public class ReportFactory {
 		reports.put(ScholarAttendanceAssignments2017.REPORT_NAME, ScholarAttendanceAssignments2017.class);
 		reports.put(ScholarsReport2017.REPORT_NAME, ScholarsReport2017.class);
 		reports.put(ScholarAssignments2017.REPORT_NAME, ScholarAssignments2017.class);
-
-		// Removing the 2016 reports
-//		reports.put(Attendance2016.REPORT_NAME, Attendance2016.class);
-//		reports.put(AvgAttendanceByGrade2016.REPORT_NAME, AvgAttendanceByGrade2016.class);
-//		reports.put(ScholarsByResource2016.REPORT_NAME, ScholarsByResource2016.class);
-//		reports.put(AvgAttendanceByResource2016.REPORT_NAME, AvgAttendanceByResource2016.class);
 	}
 
 	public static Report getReport(String reportName) {

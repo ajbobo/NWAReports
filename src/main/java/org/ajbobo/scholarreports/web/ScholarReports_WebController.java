@@ -1,24 +1,19 @@
-package org.noahwebster.nwareports.web;
+package org.ajbobo.scholarreports.web;
 
-import com.dropbox.core.*;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.noahwebster.nwareports.data.DataTable;
-import org.noahwebster.nwareports.data.FileManager;
-import org.noahwebster.nwareports.reports.types.Report;
-import org.noahwebster.nwareports.reports.util.ReportFactory;
+import org.ajbobo.scholarreports.data.DataTable;
+import org.ajbobo.scholarreports.data.FileManager;
+import org.ajbobo.scholarreports.reports.types.Report;
+import org.ajbobo.scholarreports.reports.util.ReportFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class NWAReports_WebController {
+public class ScholarReports_WebController {
 
 	@RequestMapping("/reports")
 	public List<Report> getReports() {

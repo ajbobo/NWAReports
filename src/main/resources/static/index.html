@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="NWAReports">
+<html lang="en" ng-app="ScholarReports">
 <head>
     <meta charset="UTF-8">
-    <title>NWA Reports</title>
+    <title>Scholar Status Reports</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-    <script src="js/nwareports_controller.js"></script>
+    <script src="js/scholarreports_controller.js"></script>
     <link rel="stylesheet" href="css/index.css">
 </head>
-<body ng-controller="NWAReportsCtrl">
+<body ng-controller="ScholarReportsCtrl">
 <h1>Scholar Status Reports</h1>
 
 <div>
-    <p>Reports</p>
     <form>
         <p><input type="checkbox" ng-model="hidePii" ng-true-value="true" ng-false-value="false"/>Hide Personal Information in results</p>
         <label>Select a report: <select ng-model="selectedReport" ng-options="x.name for x in reports"></select></label>

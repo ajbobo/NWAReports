@@ -1,6 +1,6 @@
-package org.noahwebster.nwareports.reports;
+package org.ajbobo.scholarreports.reports;
 
-import org.noahwebster.nwareports.reports.types.AvgAttendanceByResource;
+import org.ajbobo.scholarreports.reports.types.AvgAttendanceByResource;
 
 public class AvgAttendanceByResource2017 extends AvgAttendanceByResource {
 	public static final String REPORT_NAME = "Average Attendance By Resource";

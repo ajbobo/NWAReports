@@ -1,7 +1,7 @@
-package org.noahwebster.nwareports.data;
+package org.ajbobo.scholarreports.data;
 
 import com.opencsv.CSVReader;
-import org.noahwebster.nwareports.datatypes.StringRow;
+import org.ajbobo.scholarreports.datatypes.StringRow;
 
 import java.io.FileNotFoundException;
 import java.io.Reader;

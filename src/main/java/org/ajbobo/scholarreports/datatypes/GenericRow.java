@@ -1,4 +1,4 @@
-package org.noahwebster.nwareports.datatypes;
+package org.ajbobo.scholarreports.datatypes;
 
 import java.util.LinkedHashMap;
 import java.util.Set;

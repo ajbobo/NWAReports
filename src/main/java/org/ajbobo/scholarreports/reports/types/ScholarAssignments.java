@@ -1,9 +1,8 @@
-package org.noahwebster.nwareports.reports.types;
+package org.ajbobo.scholarreports.reports.types;
 
-import org.noahwebster.nwareports.data.DataTable;
-import org.noahwebster.nwareports.data.DataTableReducer;
-import org.noahwebster.nwareports.data.DataTableReducer.Operation;
-import org.noahwebster.nwareports.datatypes.StringRow;
+import org.ajbobo.scholarreports.data.DataTable;
+import org.ajbobo.scholarreports.data.DataTableReducer;
+import org.ajbobo.scholarreports.datatypes.StringRow;
 
 public abstract class ScholarAssignments extends Report {
 	protected String assignmentFile;
@@ -29,8 +28,8 @@ public abstract class ScholarAssignments extends Report {
 
 		DataTableReducer reducer2 = new DataTableReducer.Builder()
 				.withKeyColumns("ID", "FirstName", "LastName", "Subject")
-				.withOperation("Assignments", Operation.SUM)
-				.withOperation("Missing", Operation.SUM)
+				.withOperation("Assignments", DataTableReducer.Operation.SUM)
+				.withOperation("Missing", DataTableReducer.Operation.SUM)
 				.build();
 
 		DataTable assignmentsByStudent = reducer2.reduce(missingAssignmentsTable);

@@ -1,6 +1,6 @@
-package org.noahwebster.nwareports.reports;
+package org.ajbobo.scholarreports.reports;
 
-import org.noahwebster.nwareports.reports.types.ScholarAssignments;
+import org.ajbobo.scholarreports.reports.types.ScholarAssignments;
 
 public class ScholarAssignments2017 extends ScholarAssignments {
 	public static final String REPORT_NAME = "Scholar Assignments";

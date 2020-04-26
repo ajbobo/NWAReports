@@ -1,7 +1,7 @@
-package org.noahwebster.nwareports.reports.types;
+package org.ajbobo.scholarreports.reports.types;
 
-import org.noahwebster.nwareports.data.DataTable;
-import org.noahwebster.nwareports.data.FileManager;
+import org.ajbobo.scholarreports.data.DataTable;
+import org.ajbobo.scholarreports.data.FileManager;
 
 @SuppressWarnings("unused")
 public abstract class Report {

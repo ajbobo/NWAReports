@@ -1,5 +1,5 @@
-angular.module('NWAReports', [])
-    .controller('NWAReportsCtrl', function ($scope, $http) {
+angular.module('ScholarReports', [])
+    .controller('ScholarReportsCtrl', function ($scope, $http) {
         $scope.selectedReport = null;
         $scope.data = null;
         $scope.hidePii = false;

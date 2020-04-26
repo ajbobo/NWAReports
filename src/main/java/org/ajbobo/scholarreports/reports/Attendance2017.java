@@ -1,6 +1,6 @@
-package org.noahwebster.nwareports.reports;
+package org.ajbobo.scholarreports.reports;
 
-import org.noahwebster.nwareports.reports.types.Attendance;
+import org.ajbobo.scholarreports.reports.types.Attendance;
 
 public class Attendance2017 extends Attendance {
 	public static final String REPORT_NAME = "Attendance";
