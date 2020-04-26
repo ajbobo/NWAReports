@@ -29,7 +29,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter')
     compile('com.opencsv:opencsv:3.10')
-    compile 'com.dropbox.core:dropbox-core-sdk:+'
 
     testCompile('org.testng:testng:+')
     testCompile('org.springframework.boot:spring-boot-starter-test')
